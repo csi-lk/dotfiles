@@ -7,6 +7,9 @@ set -g fish_greeting
 set -gx EDITOR hx
 set -gx VISUAL hx
 
+# Homebrew settings
+set -gx HOMEBREW_NO_AUTO_UPDATE 1
+
 # Initialize starship prompt
 if type -q starship
     starship init fish | source
@@ -36,6 +39,10 @@ alias cme="chezmoi edit"
 alias cmcd="cd (chezmoi source-path)"
 alias cms="chezmoi status"
 alias cmu="chezmoi update"
+
+# Homebrew aliases
+alias brewup="env HOMEBREW_NO_AUTO_UPDATE=0 brew update && brew upgrade"
+alias brewfast="env HOMEBREW_NO_AUTO_UPDATE=1 brew"
 
 # Common PATH additions
 fish_add_path $HOME/.local/bin

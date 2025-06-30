@@ -5,6 +5,9 @@ set -eufo pipefail
 {{ if eq .chezmoi.os "darwin" -}}
 echo "Checking Homebrew health..."
 
+# Skip auto-update by default
+export HOMEBREW_NO_AUTO_UPDATE=1
+
 # Function to fix common brew issues
 fix_brew_issues() {
     echo "Attempting to fix Homebrew issues..."

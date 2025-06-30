@@ -31,6 +31,9 @@ set -eufo pipefail
 {{ if eq .chezmoi.os "darwin" -}}
 echo "Setting up macOS..."
 
+# Skip brew update by default (it's slow)
+export HOMEBREW_NO_AUTO_UPDATE=1
+
 # Install Homebrew if not installed
 if ! command -v brew >/dev/null 2>&1; then
     echo "Installing Homebrew..."
@@ -43,20 +46,18 @@ if ! command -v brew >/dev/null 2>&1; then
     fi
 fi
 
-# Update Homebrew
-brew update
+# Only update Homebrew if explicitly requested or if it's a fresh install
+if [ "${FORCE_BREW_UPDATE:-}" = "1" ] || [ "${HOMEBREW_FRESH_INSTALL:-}" = "1" ]; then
+    echo "Updating Homebrew..."
+    brew update || echo "Homebrew update failed, continuing..."
+else
+    echo "Skipping Homebrew update (set FORCE_BREW_UPDATE=1 to update)"
+fi
 
 # Install taps
 {{ range $taps -}}
-brew tap {{ . | quote }}
+brew tap {{ . | quote }} 2>/dev/null || true
 {{ end -}}
-
-# First try to update brew to fix potential issues
-echo "Checking Homebrew..."
-brew update || {
-    echo "Homebrew update failed, continuing without update..."
-    echo "You may want to run 'brew update-reset' manually later"
-}
 
 # Install packages individually to handle failures better
 echo "Installing packages..."
