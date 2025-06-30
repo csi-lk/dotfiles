@@ -119,6 +119,50 @@ The Helix configuration is optimized for frontend development with:
 ### Checking LSP Status
 Run `helix-lsp-status` to see which language servers are installed.
 
+## Tmux Configuration
+
+The tmux setup is optimized for a pure keyboard workflow:
+
+### Key Concepts
+- **Prefix**: `Ctrl-a` (instead of default `Ctrl-b`)
+- **Vim-style navigation**: h/j/k/l for pane movement
+- **No-prefix shortcuts**: Alt+h/j/k/l for quick pane switching
+- **Smart splits**: | for vertical, - for horizontal (keeps current directory)
+
+### Session Management
+- `tm` - Interactive session manager with fzf
+- `tm <name>` - Create or attach to named session
+- `tm <name> <path>` - Create session in specific directory
+- `Ctrl-f` (in fish) - Project sessionizer to quickly jump to git repos
+
+### Important Keybindings
+- `Prefix + r` - Reload configuration
+- `Prefix + |` - Split vertically
+- `Prefix + -` - Split horizontally
+- `Prefix + h/j/k/l` - Navigate panes
+- `Alt + h/j/k/l` - Navigate panes (no prefix)
+- `Prefix + H/J/K/L` - Resize panes (5 cells)
+- `Prefix + S` - Create new session
+- `Prefix + s` - Switch sessions
+- `Prefix + w` - Switch windows
+- `Prefix + Enter` - Copy mode
+- `Prefix + Tab` - Cycle panes
+
+### Auto-start in Codespaces
+Tmux automatically starts in Codespaces with a "main" session. This provides:
+- Persistent terminal sessions
+- Multiple panes/windows in the web interface
+- Session restoration on reconnect
+
+### Plugins Included
+- TPM (Tmux Plugin Manager)
+- tmux-resurrect (save/restore sessions)
+- tmux-continuum (automatic save/restore)
+- tmux-yank (better copy/paste)
+- tmux-prefix-highlight (visual prefix indicator)
+
+Run `tmux-cheatsheet` for a complete list of custom keybindings.
+
 ## GitHub Codespaces Support
 
 The repository automatically configures Codespaces through `.devcontainer/devcontainer.json`. Fish shell is set as the default terminal, and all tools are installed automatically.

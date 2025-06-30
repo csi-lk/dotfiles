@@ -1,0 +1,82 @@
+#!/usr/bin/env fish
+# Tmux session manager
+
+function tm --description "Tmux session manager"
+    if test (count $argv) -eq 0
+        # No arguments - show session picker
+        set -l sessions (tmux list-sessions -F "#{session_name}" 2>/dev/null)
+        
+        if test (count $sessions) -eq 0
+            echo "No tmux sessions found. Creating new session..."
+            tmux new-session -s main
+            return
+        end
+        
+        # Use fzf if available, otherwise use numbered menu
+        if type -q fzf
+            set -l selected (echo -e "New Session\n$sessions" | fzf --prompt="Select session: " --height=10 --reverse)
+            
+            if test -z "$selected"
+                return 1
+            else if test "$selected" = "New Session"
+                read -P "Session name: " session_name
+                if test -n "$session_name"
+                    tmux new-session -s "$session_name"
+                end
+            else
+                if test -n "$TMUX"
+                    tmux switch-client -t "$selected"
+                else
+                    tmux attach-session -t "$selected"
+                end
+            end
+        else
+            # Fallback to numbered menu
+            echo "Available sessions:"
+            echo "0) New Session"
+            set -l i 1
+            for session in $sessions
+                echo "$i) $session"
+                set i (math $i + 1)
+            end
+            
+            read -P "Select session (0-"(math (count $sessions))") ): " choice
+            
+            if test "$choice" = "0"
+                read -P "Session name: " session_name
+                if test -n "$session_name"
+                    tmux new-session -s "$session_name"
+                end
+            else if test $choice -ge 1 -a $choice -le (count $sessions)
+                set -l selected $sessions[$choice]
+                if test -n "$TMUX"
+                    tmux switch-client -t "$selected"
+                else
+                    tmux attach-session -t "$selected"
+                end
+            end
+        end
+    else
+        # Argument provided - create or attach to named session
+        set -l session_name $argv[1]
+        
+        if tmux has-session -t "$session_name" 2>/dev/null
+            if test -n "$TMUX"
+                tmux switch-client -t "$session_name"
+            else
+                tmux attach-session -t "$session_name"
+            end
+        else
+            # Create new session with the given name
+            if test (count $argv) -ge 2
+                # If a directory is provided as second argument
+                tmux new-session -s "$session_name" -c "$argv[2]"
+            else
+                tmux new-session -s "$session_name"
+            end
+        end
+    end
+end
+
+# Run the function
+tm $argv

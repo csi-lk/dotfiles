@@ -1,0 +1,98 @@
+#!/bin/bash
+
+set -eufo pipefail
+
+echo "Setting up tmux..."
+
+# Install Tmux Plugin Manager
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    echo "Installing Tmux Plugin Manager..."
+    git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi
+
+# Install plugins
+if command -v tmux >/dev/null 2>&1; then
+    echo "Installing tmux plugins..."
+    # Start a tmux server but don't attach to it
+    tmux start-server
+    # Create a new session but don't attach to it
+    tmux new-session -d -s temp_session
+    # Install plugins
+    "$HOME/.tmux/plugins/tpm/scripts/install_plugins.sh"
+    # Kill the temporary session
+    tmux kill-session -t temp_session 2>/dev/null || true
+fi
+
+echo "Tmux setup complete!"
+
+# Create a cheat sheet
+cat > "$HOME/.local/bin/tmux-cheatsheet" << 'EOF'
+#!/bin/bash
+
+cat << 'CHEAT'
+TMUX CHEATSHEET - Custom Keybindings
+=====================================
+
+PREFIX: Ctrl-a (press before other commands)
+
+SESSIONS:
+  tm              - Session manager (custom command)
+  Prefix + S      - Create new session
+  Prefix + s      - List/switch sessions
+  Prefix + K      - Kill current session
+  Ctrl-f          - Project sessionizer (in fish)
+
+WINDOWS:
+  Prefix + c      - Create window
+  Prefix + ,      - Rename window
+  Prefix + w      - List windows
+  Prefix + &      - Kill window
+  Prefix + 0-9    - Switch to window
+  Ctrl-h/l        - Previous/next window (with prefix)
+  Prefix + </> - Move window left/right
+
+PANES:
+  Prefix + |      - Split vertically
+  Prefix + -      - Split horizontally
+  Prefix + h/j/k/l - Navigate panes (vim-style)
+  Alt + h/j/k/l   - Navigate panes (no prefix needed)
+  Prefix + H/J/K/L - Resize pane (5 cells)
+  Prefix + Ctrl-h/j/k/l - Fine resize (1 cell)
+  Prefix + Tab    - Cycle panes
+  Prefix + z      - Zoom pane
+  Prefix + x      - Kill pane
+  Prefix + Space  - Cycle layouts
+  Prefix + Ctrl-s - Synchronize panes
+
+COPY MODE:
+  Prefix + Enter  - Enter copy mode
+  v              - Start selection (in copy mode)
+  y              - Copy selection
+  Prefix + p     - Paste
+  Prefix + P     - Choose paste buffer
+
+QUICK LAUNCHERS:
+  Prefix + h     - Edit tmux config
+  Prefix + g     - Open git (gg)
+  Prefix + t     - Open todo list
+
+OTHER:
+  Prefix + r     - Reload config
+  Prefix + ?     - Show all keybindings
+
+LAYOUTS:
+  Alt + 1-5      - Select preset layouts
+  
+TMUX ALIASES (in fish):
+  ta             - Attach to session
+  tl             - List sessions
+  tn <name>      - New named session
+  tk             - Kill session
+  tka            - Kill all sessions
+CHEAT
+EOF
+
+chmod +x "$HOME/.local/bin/tmux-cheatsheet"
+
+echo ""
+echo "Run 'tmux-cheatsheet' to see all custom keybindings"

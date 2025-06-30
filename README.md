@@ -66,7 +66,15 @@ cd dotfiles
 - **eza** - Modern ls replacement
 - **gh** - GitHub CLI
 - **gg** - Smart git aliases ([csi-lk/gg](https://github.com/csi-lk/gg))
-- **tmux** - Terminal multiplexer
+
+### Terminal Multiplexer
+- **tmux** - Highly customized for keyboard-only workflow:
+  - Vim-style navigation and pane management
+  - Smart session management with `tm` command
+  - Project sessionizer with `Ctrl-f`
+  - Auto-starts in Codespaces
+  - Custom OneDark theme matching Helix
+  - Session persistence and restoration
 
 ## Customization
 
