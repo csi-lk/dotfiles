@@ -19,7 +19,9 @@
       "Bash(ln:*)",
       "Bash(aerospace:*)",
       "Bash(brew uninstall:*)",
-      "Bash(brew untap:*)"
+      "Bash(brew untap:*)",
+      "Bash(emacs:*)",
+      "Bash(timeout:*)"
     ],
     "deny": []
   }

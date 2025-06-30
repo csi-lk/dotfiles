@@ -91,7 +91,7 @@ chezmoi data
 ## Design Decisions
 
 1. **Fish as default shell**: Modern, user-friendly shell with good defaults
-2. **Helix over Vim/Neovim**: Built-in LSP support, no plugin management needed
+2. **Multiple editor options**: Helix for simplicity, Emacs for full IDE experience
 3. **Chezmoi over symlinks**: Better handling of OS differences, secrets management
 4. **Minimal approach**: Only essential tools, avoid bloat
 
@@ -123,6 +123,41 @@ The Helix configuration is optimized for frontend development with:
 
 ### Checking LSP Status
 Run `helix-lsp-status` to see which language servers are installed.
+
+## Modern Emacs Configuration
+
+The dotfiles include a comprehensive Emacs setup designed for developers coming from VSCode:
+
+### Key Features
+- **VSCode-style keybindings** - Familiar shortcuts (Ctrl+S, Ctrl+C/V, Ctrl+P, etc.)
+- **Non-modal editing** - Direct typing, no vim modes
+- **TypeScript/JavaScript LSP** - Full IntelliSense with language servers
+- **GitHub Copilot** - AI-powered code completion
+- **File explorer** - Treemacs with icons (F8 to toggle)
+- **Fuzzy finding** - Quick file navigation with Ctrl+P
+- **Git integration** - Magit for version control
+- **Terminal integration** - Built-in terminal support
+- **Modern UI** - Doom themes with clean interface
+
+### First-Time Setup
+1. Start Emacs - packages auto-install (takes a few minutes)
+2. Run `M-x all-the-icons-install-fonts` for file explorer icons
+3. Run `M-x copilot-login` to enable AI completion
+4. Install TypeScript support: `npm install -g typescript-language-server typescript`
+
+### Essential Keybindings
+- `Ctrl+P` - Fuzzy file finder
+- `F8` - Toggle file explorer
+- `Ctrl+S` - Save file
+- `Ctrl+/` - Toggle comment
+- `Ctrl+D` - Duplicate line
+- `Ctrl+X G` - Git status
+- `Ctrl+\`` - Terminal
+
+### Configuration Location
+- Main config: `~/.emacs.d/init.el`
+- Documentation: `~/.emacs.d/README.md`
+- Packages auto-install to `~/.emacs.d/elpa/`
 
 ## Tmux Configuration
 
