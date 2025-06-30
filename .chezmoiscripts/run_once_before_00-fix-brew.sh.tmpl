@@ -38,10 +38,5 @@ else
     echo "Homebrew is working properly"
 fi
 
-# Ensure core taps are available
-if ! brew tap | grep -q "homebrew/core"; then
-    echo "Re-adding homebrew/core tap..."
-    brew tap homebrew/core || true
-fi
 
 {{ end -}}
