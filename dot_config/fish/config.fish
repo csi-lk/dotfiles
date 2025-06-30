@@ -40,6 +40,18 @@ alias cmcd="cd (chezmoi source-path)"
 alias cms="chezmoi status"
 alias cmu="chezmoi update"
 
+# Claude Code aliases
+alias cc="claude"
+alias ccc="claude --conversation"
+alias ccn="claude --new"
+alias ccp="claude --plan"
+
+# claude-squad aliases
+alias cs="claude-squad"
+alias csa="claude-squad add"
+alias csl="claude-squad list"
+alias csr="claude-squad run"
+
 # Homebrew aliases
 alias brewup="env HOMEBREW_NO_AUTO_UPDATE=0 brew update && brew upgrade"
 alias brewfast="env HOMEBREW_NO_AUTO_UPDATE=1 brew"

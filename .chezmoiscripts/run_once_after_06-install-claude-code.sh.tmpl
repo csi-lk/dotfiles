@@ -1,0 +1,46 @@
+#!/bin/bash
+
+set -eufo pipefail
+
+echo "Installing Claude Code tools..."
+
+# Check if npm is available
+if ! command -v npm >/dev/null 2>&1; then
+    echo "npm not found. Please ensure Node.js is installed first."
+    echo "Node.js should be installed via nvm in the fish configuration."
+    exit 0
+fi
+
+# Install Claude Code globally
+if ! command -v claude >/dev/null 2>&1; then
+    echo "Installing Claude Code via npm..."
+    npm install -g @anthropic-ai/claude-code
+    
+    if command -v claude >/dev/null 2>&1; then
+        echo "✓ Claude Code installed successfully"
+        claude --version || true
+    else
+        echo "✗ Failed to install Claude Code"
+    fi
+else
+    echo "✓ Claude Code already installed"
+    claude --version || true
+fi
+
+# Install claude-squad globally
+if ! command -v claude-squad >/dev/null 2>&1; then
+    echo "Installing claude-squad via npm..."
+    npm install -g claude-squad
+    
+    if command -v claude-squad >/dev/null 2>&1; then
+        echo "✓ claude-squad installed successfully"
+        claude-squad --version || true
+    else
+        echo "✗ Failed to install claude-squad"
+    fi
+else
+    echo "✓ claude-squad already installed"
+    claude-squad --version || true
+fi
+
+echo ""

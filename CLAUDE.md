@@ -178,6 +178,49 @@ The repository automatically configures Codespaces through `.devcontainer/devcon
 - **Linux**: Uses apt (Debian/Ubuntu), with fallbacks to direct downloads for tools not in repos
 - **Cross-platform tools**: Installed via curl scripts (starship, zoxide) or cargo when needed
 
+## Claude Code Support
+
+Claude Code and claude-squad are automatically installed and configured with convenient aliases:
+
+### Installation
+- Claude Code: Installed globally via npm: `@anthropic-ai/claude-code`
+- claude-squad: Installed globally via npm: `claude-squad`
+- Requires Node.js (installed via nvm.fish)
+- Installation script: `run_once_after_06-install-claude-code.sh.tmpl`
+
+### Claude Code Aliases
+- `cc` - Run claude (shorthand)
+- `ccc` - Start claude with conversation mode
+- `ccn` - Start claude with a new conversation
+- `ccp` - Start claude in plan mode
+
+### claude-squad Aliases
+- `cs` - Run claude-squad
+- `csa` - Add agents to squad (claude-squad add)
+- `csl` - List current squad (claude-squad list)
+- `csr` - Run squad on task (claude-squad run)
+
+### Usage Examples
+```bash
+# Claude Code - Quick question
+cc "explain this error"
+
+# Claude Code - Start a conversation
+ccc
+
+# Claude Code - New project planning
+ccp "help me build a React app"
+
+# claude-squad - Create a squad
+csa coder reviewer
+
+# claude-squad - List current squad
+csl
+
+# claude-squad - Run squad on a task
+csr "implement user authentication"
+```
+
 ## Nerd Fonts Setup
 
 FiraCode Nerd Font is automatically installed and configured:
