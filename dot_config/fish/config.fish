@@ -27,17 +27,6 @@ alias cd="z"
 alias vim="hx"
 alias vi="hx"
 
-# Git aliases
-alias g="git"
-alias gs="git status"
-alias ga="git add"
-alias gc="git commit"
-alias gp="git push"
-alias gl="git pull"
-alias gd="git diff"
-alias gco="git checkout"
-alias gb="git branch"
-
 # Common PATH additions
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.cargo/bin

@@ -60,6 +60,7 @@ cd dotfiles
 - **bat** - Better cat with syntax highlighting
 - **eza** - Modern ls replacement
 - **gh** - GitHub CLI
+- **gg** - Smart git aliases ([csi-lk/gg](https://github.com/csi-lk/gg))
 - **tmux** - Terminal multiplexer
 
 ## Customization

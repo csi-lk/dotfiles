@@ -16,7 +16,8 @@ set -eufo pipefail
      "gh"
      "tmux"
      "curl"
-     "wget" -}}
+     "wget"
+     "gg" -}}
 
 {{ $taps := list -}}
 {{ $casks := list 
@@ -110,6 +111,17 @@ case "$OS" in
             echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
             sudo apt update
             sudo apt install gh -y
+        fi
+        {{ else if eq . "gg" -}}
+        # Install gg (git aliases)
+        if ! command -v gg >/dev/null 2>&1; then
+            echo "Installing gg..."
+            # Install via npm if available
+            if command -v npm >/dev/null 2>&1; then
+                npm install -g @csi.lk/gg
+            else
+                echo "npm not found, will install gg after Node.js is set up"
+            fi
         fi
         {{ else -}}
         sudo apt-get install -y {{ . }}

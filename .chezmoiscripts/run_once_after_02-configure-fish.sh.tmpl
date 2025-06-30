@@ -33,7 +33,12 @@ if ! command -v node >/dev/null 2>&1; then
     fish -c "nvm use lts" || true
     
     # Install common global npm packages
-    fish -c "npm install -g pnpm yarn npm-check-updates" || true
+    fish -c "npm install -g pnpm yarn npm-check-updates @csi.lk/gg" || true
+else
+    # If node exists but gg doesn't, install gg
+    if ! command -v gg >/dev/null 2>&1; then
+        fish -c "npm install -g @csi.lk/gg" || true
+    fi
 fi
 
 echo "Fish shell configuration complete!"
