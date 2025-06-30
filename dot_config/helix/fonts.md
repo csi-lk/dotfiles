@@ -38,17 +38,18 @@ If FiraCode Nerd Font is not available:
 
 **macOS**:
 ```bash
-brew tap homebrew/cask-fonts
-brew install --cask font-fira-code-nerd-font
+mkdir -p ~/Library/Fonts
+curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip -o /tmp/FiraCode.zip
+unzip -o /tmp/FiraCode.zip -d ~/Library/Fonts/
+rm /tmp/FiraCode.zip
 ```
 
 **Linux**:
 ```bash
 mkdir -p ~/.local/share/fonts
-cd ~/.local/share/fonts
-curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip -o FiraCode.zip
-unzip FiraCode.zip
-rm FiraCode.zip
+curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip -o /tmp/FiraCode.zip
+unzip -o /tmp/FiraCode.zip -d ~/.local/share/fonts/
+rm /tmp/FiraCode.zip
 fc-cache -fv
 ```
 

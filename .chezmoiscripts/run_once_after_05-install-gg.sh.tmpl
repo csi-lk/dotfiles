@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -eufo pipefail
+
+echo "Installing gg (git aliases)..."
+
+# Check if gg is already installed
+if command -v gg >/dev/null 2>&1; then
+    echo "gg is already installed at: $(which gg)"
+    echo "Version: $(gg --version 2>/dev/null || echo 'version unknown')"
+else
+    echo "Installing gg from git.io/fpEqU..."
+    
+    # Install gg using the official installation script
+    if curl -fsSL git.io/fpEqU | bash; then
+        echo "gg installed successfully!"
+        
+        # Verify installation
+        if command -v gg >/dev/null 2>&1; then
+            echo "gg is now available at: $(which gg)"
+        else
+            echo "Warning: gg was installed but not found in PATH"
+            echo "You may need to restart your shell or add it to your PATH"
+        fi
+    else
+        echo "Failed to install gg. You can try manually:"
+        echo "  curl -fsSL git.io/fpEqU | bash"
+        echo "  or"
+        echo "  curl -fsSL https://github.com/csi-lk/gg/raw/master/install.sh | bash"
+    fi
+fi
+
+echo "gg installation process complete!"

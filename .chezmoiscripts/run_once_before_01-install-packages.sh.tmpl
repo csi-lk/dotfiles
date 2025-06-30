@@ -16,19 +16,16 @@ set -eufo pipefail
      "gh"
      "tmux"
      "curl"
-     "wget"
-     "gg" -}}
+     "wget" -}}
 {{ $macPackages := list
      "sketchybar"
      "jq"
      "yabai" -}}
 
 {{ $taps := list 
-     "homebrew/cask-fonts"
      "nikitabobko/tap" -}}
 {{ $casks := list 
      "ghostty"
-     "font-fira-code-nerd-font"
      "aerospace" -}}
 
 {{ if eq .chezmoi.os "darwin" -}}
@@ -54,23 +51,68 @@ brew update
 brew tap {{ . | quote }}
 {{ end -}}
 
-# Install packages
-brew bundle --no-lock --file=/dev/stdin <<EOF
+# First try to update brew to fix potential issues
+brew update-reset || true
+
+# Install packages individually to handle failures better
+echo "Installing packages..."
 {{ range $packages -}}
-brew {{ . | quote }}
+{{ if eq . "fd" -}}
+echo "Installing fd..."
+if ! brew install fd; then
+    echo "Failed to install fd via brew, trying alternative method..."
+    # Try installing fd via cargo if available
+    if command -v cargo >/dev/null 2>&1; then
+        cargo install fd-find
+    else
+        echo "Warning: Failed to install fd, continuing..."
+    fi
+fi
+{{ else -}}
+echo "Installing {{ . }}..."
+brew install {{ . }} || echo "Warning: Failed to install {{ . }}, continuing..."
 {{ end -}}
+{{ end -}}
+
+# Install macOS-specific packages
 {{ range $macPackages -}}
-brew {{ . | quote }}
+echo "Installing {{ . }}..."
+brew install {{ . }} || echo "Warning: Failed to install {{ . }}, continuing..."
 {{ end -}}
+
+# Install casks
 {{ range $casks -}}
-cask {{ . | quote }}
+echo "Installing {{ . }}..."
+brew install --cask {{ . }} || echo "Warning: Failed to install {{ . }}, continuing..."
 {{ end -}}
-EOF
 
 # Additional macOS setup for sketchybar
 if command -v sketchybar >/dev/null 2>&1; then
     # Start sketchybar service
     brew services start sketchybar 2>/dev/null || true
+fi
+
+# Install Nerd Fonts on macOS
+echo "Installing FiraCode Nerd Font..."
+FONT_DIR="$HOME/Library/Fonts"
+mkdir -p "$FONT_DIR"
+
+# Check if font is already installed
+if ! ls "$FONT_DIR" | grep -q "FiraCodeNerdFont"; then
+    # Download FiraCode Nerd Font
+    FONT_VERSION="v3.4.0"
+    FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/${FONT_VERSION}/FiraCode.zip"
+    
+    echo "Downloading FiraCode Nerd Font ${FONT_VERSION}..."
+    curl -L "$FONT_URL" -o /tmp/FiraCode.zip
+    
+    # Extract to fonts directory
+    unzip -o /tmp/FiraCode.zip -d "$FONT_DIR"
+    rm /tmp/FiraCode.zip
+    
+    echo "FiraCode Nerd Font installed successfully"
+else
+    echo "FiraCode Nerd Font already installed"
 fi
 
 {{ else if eq .chezmoi.os "linux" -}}
@@ -129,17 +171,6 @@ case "$OS" in
             sudo apt update
             sudo apt install gh -y
         fi
-        {{ else if eq . "gg" -}}
-        # Install gg (git aliases)
-        if ! command -v gg >/dev/null 2>&1; then
-            echo "Installing gg..."
-            # Install via npm if available
-            if command -v npm >/dev/null 2>&1; then
-                npm install -g @csi.lk/gg
-            else
-                echo "npm not found, will install gg after Node.js is set up"
-            fi
-        fi
         {{ else -}}
         sudo apt-get install -y {{ . }}
         {{ end -}}
@@ -153,7 +184,7 @@ case "$OS" in
         # Check if font is already installed
         if ! fc-list | grep -q "FiraCode Nerd Font"; then
             # Download FiraCode Nerd Font
-            FONT_VERSION="v3.1.1"
+            FONT_VERSION="v3.4.0"
             FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/${FONT_VERSION}/FiraCode.zip"
             
             echo "Downloading FiraCode Nerd Font..."
@@ -183,3 +214,26 @@ esac
 {{ end -}}
 
 echo "Package installation complete!"
+
+# Show summary of what's installed
+echo ""
+echo "Installed packages summary:"
+echo "=========================="
+{{ range $packages -}}
+if command -v {{ . }} >/dev/null 2>&1; then
+    echo "✓ {{ . }}"
+else
+    echo "✗ {{ . }} (not found)"
+fi
+{{ end -}}
+
+# Special cases
+if command -v fd >/dev/null 2>&1; then
+    echo "✓ fd"
+elif command -v fdfind >/dev/null 2>&1; then
+    echo "✓ fd (as fdfind)"
+else
+    echo "✗ fd (not found)"
+fi
+
+echo ""

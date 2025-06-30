@@ -1,0 +1,44 @@
+#!/bin/bash
+
+set -eufo pipefail
+
+{{ if eq .chezmoi.os "darwin" -}}
+echo "Checking Homebrew health..."
+
+# Function to fix common brew issues
+fix_brew_issues() {
+    echo "Attempting to fix Homebrew issues..."
+    
+    # Fix potential GitHub API rate limiting
+    if [ -n "${HOMEBREW_GITHUB_API_TOKEN:-}" ]; then
+        echo "GitHub API token already set"
+    else
+        echo "Note: You may want to set HOMEBREW_GITHUB_API_TOKEN to avoid rate limits"
+        echo "See: https://docs.brew.sh/Manpage#environment"
+    fi
+    
+    # Clean up any potential issues
+    brew cleanup --prune=all || true
+    
+    # Update Homebrew itself
+    brew update || brew update-reset
+    
+    # Fix any potential tap issues
+    brew tap --repair || true
+}
+
+# Check if brew is working properly
+if ! brew config >/dev/null 2>&1; then
+    echo "Homebrew appears to be broken, attempting to fix..."
+    fix_brew_issues
+else
+    echo "Homebrew is working properly"
+fi
+
+# Ensure core taps are available
+if ! brew tap | grep -q "homebrew/core"; then
+    echo "Re-adding homebrew/core tap..."
+    brew tap homebrew/core || true
+fi
+
+{{ end -}}

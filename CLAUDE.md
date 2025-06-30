@@ -51,6 +51,11 @@ The repository uses chezmoi templating to handle differences between macOS and L
 2. Add to the `$packages` list for general packages
 3. Add OS-specific installation logic if needed
 
+### Special Package Installations
+- **gg (git aliases)**: Installed via curl script in `run_once_after_05-install-gg.sh.tmpl`
+- **Node.js**: Installed via nvm.fish in the fish configuration script
+- **LSP servers**: Installed in `run_once_after_03-install-lsp-servers.sh.tmpl`
+
 ### Testing Changes
 ```bash
 # See what would change
@@ -178,9 +183,10 @@ The repository automatically configures Codespaces through `.devcontainer/devcon
 FiraCode Nerd Font is automatically installed and configured:
 
 ### Installation
-- **macOS**: Via Homebrew cask (`font-fira-code-nerd-font`)
+- **macOS**: Downloads from GitHub releases to `~/Library/Fonts`
 - **Linux**: Downloads from GitHub releases to `~/.local/share/fonts`
 - **Codespaces**: Falls back to standard Unicode icons
+- **Version**: v3.4.0 (latest stable release)
 
 ### Configuration
 - **Ghostty**: Configured with `FiraCode Nerd Font` and ligatures

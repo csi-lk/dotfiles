@@ -43,7 +43,6 @@ cmd-shift-l = 'move right'
 cmd-r = 'mode resize'
 
 # Layout commands
-cmd-shift-space = 'layout floating tiling'
 cmd-t = 'layout tiles horizontal vertical'
 cmd-shift-t = 'layout accordion horizontal vertical'
 
@@ -80,8 +79,8 @@ cmd-shift-s = 'split horizontal'
 # Balance windows
 cmd-shift-0 = 'balance-sizes'
 
-# Float/unfloat window
-cmd-shift-space = 'layout floating tiling'
+# Float/unfloat window (use cmd-shift-f for this)
+# cmd-shift-space = 'layout floating tiling'
 
 # Close window
 cmd-w = 'close'
