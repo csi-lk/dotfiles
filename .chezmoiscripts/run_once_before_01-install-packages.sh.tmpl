@@ -24,10 +24,12 @@ set -eufo pipefail
      "yabai" -}}
 
 {{ $taps := list 
-     "homebrew/cask-fonts" -}}
+     "homebrew/cask-fonts"
+     "nikitabobko/tap" -}}
 {{ $casks := list 
      "ghostty"
-     "font-fira-code-nerd-font" -}}
+     "font-fira-code-nerd-font"
+     "aerospace" -}}
 
 {{ if eq .chezmoi.os "darwin" -}}
 echo "Setting up macOS..."

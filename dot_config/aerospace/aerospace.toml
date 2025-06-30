@@ -1,0 +1,128 @@
+# Aerospace configuration
+# A tiling window manager for macOS
+
+# Start aerospace at login
+start-at-login = true
+
+# Normalizations
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# Gaps
+gaps.inner.horizontal = 10
+gaps.inner.vertical = 10
+gaps.outer.left = 10
+gaps.outer.bottom = 10
+gaps.outer.top = 10
+gaps.outer.right = 10
+
+# Mouse follows focus
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+# Default root container orientation
+default-root-container-orientation = 'auto'
+
+# Key bindings use cmd as the main modifier
+# Additional modifiers: alt, ctrl, shift
+
+# Mode configuration
+[mode.main.binding]
+# Focus windows - vim style
+cmd-h = 'focus left'
+cmd-j = 'focus down'
+cmd-k = 'focus up'
+cmd-l = 'focus right'
+
+# Move windows - vim style with shift
+cmd-shift-h = 'move left'
+cmd-shift-j = 'move down'
+cmd-shift-k = 'move up'
+cmd-shift-l = 'move right'
+
+# Resize mode
+cmd-r = 'mode resize'
+
+# Layout commands
+cmd-shift-space = 'layout floating tiling'
+cmd-t = 'layout tiles horizontal vertical'
+cmd-shift-t = 'layout accordion horizontal vertical'
+
+# Window commands
+cmd-f = 'fullscreen'
+cmd-shift-f = 'macos-native-fullscreen'
+
+# Workspace commands
+cmd-1 = 'workspace 1'
+cmd-2 = 'workspace 2'
+cmd-3 = 'workspace 3'
+cmd-4 = 'workspace 4'
+cmd-5 = 'workspace 5'
+cmd-6 = 'workspace 6'
+cmd-7 = 'workspace 7'
+cmd-8 = 'workspace 8'
+cmd-9 = 'workspace 9'
+
+# Move window to workspace
+cmd-shift-1 = 'move-node-to-workspace 1'
+cmd-shift-2 = 'move-node-to-workspace 2'
+cmd-shift-3 = 'move-node-to-workspace 3'
+cmd-shift-4 = 'move-node-to-workspace 4'
+cmd-shift-5 = 'move-node-to-workspace 5'
+cmd-shift-6 = 'move-node-to-workspace 6'
+cmd-shift-7 = 'move-node-to-workspace 7'
+cmd-shift-8 = 'move-node-to-workspace 8'
+cmd-shift-9 = 'move-node-to-workspace 9'
+
+# Split commands
+cmd-shift-v = 'split vertical'
+cmd-shift-s = 'split horizontal'
+
+# Balance windows
+cmd-shift-0 = 'balance-sizes'
+
+# Float/unfloat window
+cmd-shift-space = 'layout floating tiling'
+
+# Close window
+cmd-w = 'close'
+
+# Reload config
+cmd-shift-c = 'reload-config'
+
+# Resize mode bindings
+[mode.resize.binding]
+h = 'resize width -50'
+j = 'resize height +50'
+k = 'resize height -50'
+l = 'resize width +50'
+shift-h = 'resize width -10'
+shift-j = 'resize height +10'
+shift-k = 'resize height -10'
+shift-l = 'resize width +10'
+enter = 'mode main'
+esc = 'mode main'
+
+# Workspace-specific layouts
+[[on-window-detected]]
+if.app-id = 'com.microsoft.VSCode'
+run = 'layout tiling'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Terminal'
+run = 'layout tiling'
+
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'layout tiling'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = 'move-node-to-workspace 9'

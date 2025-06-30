@@ -78,11 +78,16 @@ cd dotfiles
   - Session persistence and restoration
 
 ### macOS Enhancements
-- **Sketchybar** - Minimal, customizable menu bar (macOS only):
+- **Aerospace** - Tiling window manager with keyboard focus:
+  - `ff` command - Fuzzy find and focus any window
+  - `fw` command - Quick workspace switcher
+  - Vim-style window navigation (Cmd+H/J/K/L)
+  - Automatic window organization by app
+  - Keyboard shortcuts: Ctrl+W (find windows), Alt+W (workspaces)
+- **Sketchybar** - Minimal, customizable menu bar:
   - System monitoring widgets with Nerd Font icons
   - Window and space indicators
   - Battery, CPU, memory, and network status
-  - Integrates with yabai window manager
 
 ## Customization
 

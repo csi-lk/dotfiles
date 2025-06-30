@@ -201,6 +201,39 @@ FiraCode Nerd Font is automatically installed and configured:
 4. Use system monospace font
 5. Replace icons with ASCII alternatives
 
+## Window Management (macOS)
+
+The dotfiles include aerospace window manager integration with custom fish functions:
+
+### Focus Finder Functions
+- `ff` - Basic window finder with fzf
+- `ffw` - Enhanced finder with workspace info
+- `fw` - Workspace switcher
+
+### Key Bindings
+- `Ctrl+W` in fish shell - Launch window finder
+- `Alt+W` in fish shell - Launch workspace switcher
+- Global aerospace shortcuts configured in `~/.config/aerospace/aerospace.toml`
+
+### Installation
+Aerospace is automatically installed via Homebrew on macOS. The configuration includes:
+- Vim-style navigation (Cmd+H/J/K/L)
+- 9 workspaces with quick switching
+- Automatic app placement rules
+- Tiling layouts with gaps
+
+### Usage Examples
+```bash
+# Find and focus any window
+ff
+
+# Switch workspaces
+fw
+
+# Get help
+window-help
+```
+
 ## File Permissions
 
 Chezmoi preserves file permissions. Executable scripts in `.chezmoiscripts/` will remain executable after applying.
