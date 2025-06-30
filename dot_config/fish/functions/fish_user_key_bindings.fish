@@ -10,11 +10,4 @@ function fish_user_key_bindings
     # Custom key bindings
     bind \ce edit_command_buffer  # Ctrl+E to edit command in editor
     
-    # macOS-specific window management bindings
-    if test (uname) = "Darwin"
-        # Ctrl+W for window focus finder
-        bind \cw 'ff 2>/dev/null; commandline -f repaint'
-        # Alt+W for workspace focus
-        bind \ew 'fw 2>/dev/null; commandline -f repaint'
-    end
 end

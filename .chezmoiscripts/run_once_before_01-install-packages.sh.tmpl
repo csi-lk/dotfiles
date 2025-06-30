@@ -25,11 +25,9 @@ set -eufo pipefail
      "borders" -}}
 
 {{ $taps := list 
-     "nikitabobko/tap"
      "FelixKratz/formulae" -}}
 {{ $casks := list 
-     "ghostty"
-     "aerospace" -}}
+     "ghostty" -}}
 
 {{ if eq .chezmoi.os "darwin" -}}
 echo "Setting up macOS..."

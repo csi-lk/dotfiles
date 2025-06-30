@@ -78,12 +78,6 @@ cd dotfiles
   - Session persistence and restoration
 
 ### macOS Enhancements
-- **Aerospace** - Tiling window manager with keyboard focus:
-  - `ff` command - Fuzzy find and focus any window
-  - `fw` command - Quick workspace switcher
-  - Vim-style window navigation (Cmd+H/J/K/L)
-  - Automatic window organization by app
-  - Keyboard shortcuts: Ctrl+W (find windows), Alt+W (workspaces)
 - **Sketchybar** - Minimal, customizable menu bar:
   - System monitoring widgets with Nerd Font icons
   - Window and space indicators

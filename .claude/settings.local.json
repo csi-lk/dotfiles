@@ -5,7 +5,21 @@
       "Bash(chmod:*)",
       "Bash(ls:*)",
       "Bash(mv:*)",
-      "WebFetch(domain:docs.anthropic.com)"
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(chezmoi apply:*)",
+      "Bash(aerospace reload-config:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(find:*)",
+      "Bash(warpd:*)",
+      "Bash(chezmoi:*)",
+      "Bash(diff:*)",
+      "Bash(cp:*)",
+      "Bash(rm:*)",
+      "Bash(ln:*)",
+      "Bash(aerospace:*)",
+      "Bash(brew uninstall:*)",
+      "Bash(brew untap:*)"
     ],
     "deny": []
   }

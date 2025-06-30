@@ -250,38 +250,34 @@ FiraCode Nerd Font is automatically installed and configured:
 4. Use system monospace font
 5. Replace icons with ASCII alternatives
 
-## Window Management (macOS)
 
-The dotfiles include aerospace window manager integration with custom fish functions:
+## Warpd - Keyboard-Driven Mouse Control
 
-### Focus Finder Functions
-- `ff` - Basic window finder with fzf
-- `ffw` - Enhanced finder with workspace info
-- `fw` - Workspace switcher
+Warpd is installed for keyboard-driven mouse control, allowing you to control the cursor without touching the mouse.
 
-### Key Bindings
-- `Ctrl+W` in fish shell - Launch window finder
-- `Alt+W` in fish shell - Launch workspace switcher
-- Global aerospace shortcuts configured in `~/.config/aerospace/aerospace.toml`
+### Default Keybindings
+**Mode Activation:**
+- `CMD+Alt+C` - Normal cursor movement mode
+- `CMD+Alt+X` - Hint mode (shows labels on clickable elements)
+- `CMD+Alt+G` - Grid mode (divide screen into quadrants)
+- `CMD+Alt+S` - Screen selection mode
 
-### Installation
-Aerospace is automatically installed via Homebrew on macOS. The configuration includes:
-- Vim-style navigation (Cmd+H/J/K/L)
-- 9 workspaces with quick switching
-- Automatic app placement rules
-- Tiling layouts with gaps
+**Navigation (in normal mode):**
+- `h/j/k/l` - Move cursor (vim-style)
+- `H/M/L` - Jump to top/middle/bottom of screen
+- `a` - Hold to accelerate
+- `d` - Hold to decelerate
 
-### Usage Examples
-```bash
-# Find and focus any window
-ff
+**Mouse Actions:**
+- `m` or `,` - Left click
+- `.` - Right click
+- `v` - Toggle drag mode
+- `Esc` - Exit warpd
 
-# Switch workspaces
-fw
-
-# Get help
-window-help
-```
+### Important Notes
+- Warpd keybindings take precedence over other apps
+- No configuration file exists yet (uses defaults)
+- To customize, create `~/.config/warpd/config`
 
 ## File Permissions
 
