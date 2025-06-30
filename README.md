@@ -10,6 +10,7 @@ Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/) for macOS and 
 - 🚀 **Modern CLI tools**: starship, zoxide, fzf, ripgrep, bat, eza
 - 🔧 **Automatic setup** for different operating systems
 - 🌐 **GitHub Codespaces** ready
+- 🎨 **Nerd Fonts** with automatic installation and fallbacks
 
 ## Installation
 
@@ -75,6 +76,13 @@ cd dotfiles
   - Auto-starts in Codespaces
   - Custom OneDark theme matching Helix
   - Session persistence and restoration
+
+### macOS Enhancements
+- **Sketchybar** - Minimal, customizable menu bar (macOS only):
+  - System monitoring widgets with Nerd Font icons
+  - Window and space indicators
+  - Battery, CPU, memory, and network status
+  - Integrates with yabai window manager
 
 ## Customization
 

@@ -18,10 +18,16 @@ set -eufo pipefail
      "curl"
      "wget"
      "gg" -}}
+{{ $macPackages := list
+     "sketchybar"
+     "jq"
+     "yabai" -}}
 
-{{ $taps := list -}}
+{{ $taps := list 
+     "homebrew/cask-fonts" -}}
 {{ $casks := list 
-     "ghostty" -}}
+     "ghostty"
+     "font-fira-code-nerd-font" -}}
 
 {{ if eq .chezmoi.os "darwin" -}}
 echo "Setting up macOS..."
@@ -51,10 +57,19 @@ brew bundle --no-lock --file=/dev/stdin <<EOF
 {{ range $packages -}}
 brew {{ . | quote }}
 {{ end -}}
+{{ range $macPackages -}}
+brew {{ . | quote }}
+{{ end -}}
 {{ range $casks -}}
 cask {{ . | quote }}
 {{ end -}}
 EOF
+
+# Additional macOS setup for sketchybar
+if command -v sketchybar >/dev/null 2>&1; then
+    # Start sketchybar service
+    brew services start sketchybar 2>/dev/null || true
+fi
 
 {{ else if eq .chezmoi.os "linux" -}}
 echo "Setting up Linux..."
@@ -127,6 +142,31 @@ case "$OS" in
         sudo apt-get install -y {{ . }}
         {{ end -}}
         {{ end -}}
+        
+        # Install Nerd Fonts on Linux
+        echo "Installing FiraCode Nerd Font..."
+        FONT_DIR="$HOME/.local/share/fonts"
+        mkdir -p "$FONT_DIR"
+        
+        # Check if font is already installed
+        if ! fc-list | grep -q "FiraCode Nerd Font"; then
+            # Download FiraCode Nerd Font
+            FONT_VERSION="v3.1.1"
+            FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/${FONT_VERSION}/FiraCode.zip"
+            
+            echo "Downloading FiraCode Nerd Font..."
+            curl -L "$FONT_URL" -o /tmp/FiraCode.zip
+            
+            # Extract to fonts directory
+            unzip -o /tmp/FiraCode.zip -d "$FONT_DIR"
+            rm /tmp/FiraCode.zip
+            
+            # Update font cache
+            fc-cache -fv "$FONT_DIR"
+            echo "FiraCode Nerd Font installed successfully"
+        else
+            echo "FiraCode Nerd Font already installed"
+        fi
         
         # Install ghostty if in GitHub Codespaces (build from source or skip)
         if [ -n "${CODESPACES:-}" ]; then

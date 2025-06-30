@@ -173,6 +173,34 @@ The repository automatically configures Codespaces through `.devcontainer/devcon
 - **Linux**: Uses apt (Debian/Ubuntu), with fallbacks to direct downloads for tools not in repos
 - **Cross-platform tools**: Installed via curl scripts (starship, zoxide) or cargo when needed
 
+## Nerd Fonts Setup
+
+FiraCode Nerd Font is automatically installed and configured:
+
+### Installation
+- **macOS**: Via Homebrew cask (`font-fira-code-nerd-font`)
+- **Linux**: Downloads from GitHub releases to `~/.local/share/fonts`
+- **Codespaces**: Falls back to standard Unicode icons
+
+### Configuration
+- **Ghostty**: Configured with `FiraCode Nerd Font` and ligatures
+- **VS Code**: Set in devcontainer with fallbacks
+- **Tmux**: Auto-detects Nerd Fonts and adjusts icons
+- **Starship**: Uses Nerd Font icons with full glyph support
+
+### Detection
+- Environment variable `NERD_FONT_AVAILABLE` set by fish
+- `check-nerd-fonts` command to verify installation
+- `nf_icon` fish function for icon fallbacks
+- Tmux theme adapts based on font availability
+
+### Fallback Strategy
+1. Try FiraCode Nerd Font
+2. Fall back to Fira Code (without icons)
+3. Fall back to Cascadia Code
+4. Use system monospace font
+5. Replace icons with ASCII alternatives
+
 ## File Permissions
 
 Chezmoi preserves file permissions. Executable scripts in `.chezmoiscripts/` will remain executable after applying.
