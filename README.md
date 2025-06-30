@@ -36,10 +36,12 @@ cd dotfiles
 ## What's Included
 
 ### Shell
-- **Fish** - User-friendly command line shell
+- **Fish** - User-friendly command line shell with minimal plugins:
+  - **Fisher** - Plugin manager
+  - **nvm.fish** - Node.js version management
+  - **fzf.fish** - Fuzzy finder integration
 - **Starship** - Minimal, fast prompt
 - **Zoxide** - Smarter cd command
-- **Fisher** - Plugin manager for Fish
 
 ### Editor
 - **Helix** - Modern text editor with built-in LSP support

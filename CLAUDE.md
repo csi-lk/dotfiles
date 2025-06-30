@@ -27,6 +27,7 @@ This repository contains personal dotfiles managed with [chezmoi](https://www.ch
 - `dot_` prefix becomes `.` (e.g., `dot_config` → `~/.config`)
 - `.tmpl` suffix indicates template files with OS-specific logic
 - `run_once_` scripts execute only once (tracked by chezmoi)
+- `conf.d/` files in fish are loaded automatically in alphabetical order
 
 ### OS Detection
 The repository uses chezmoi templating to handle differences between macOS and Linux:

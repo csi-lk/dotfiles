@@ -18,7 +18,22 @@ else
     echo "Skipping shell change in GitHub Codespaces"
 fi
 
-# Install Fisher plugin manager
+# Install Fisher plugin manager and plugins
+echo "Installing Fisher and plugins..."
 fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher" || true
+
+# Install fish plugins
+fish -c "fisher update" || true
+
+# Install Node Version Manager (nvm)
+echo "Setting up Node.js environment..."
+if ! command -v node >/dev/null 2>&1; then
+    # nvm.fish will handle Node.js installation
+    fish -c "nvm install lts" || true
+    fish -c "nvm use lts" || true
+    
+    # Install common global npm packages
+    fish -c "npm install -g pnpm yarn npm-check-updates" || true
+fi
 
 echo "Fish shell configuration complete!"
