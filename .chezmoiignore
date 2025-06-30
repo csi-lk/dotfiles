@@ -1,0 +1,7 @@
+README.md
+LICENSE
+install.sh
+.git
+.gitignore
+.github
+.chezmoiscripts/**/*.md

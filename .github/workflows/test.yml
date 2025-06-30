@@ -1,0 +1,39 @@
+name: Test Dotfiles
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Test installation on macOS
+      run: |
+        bash install.sh
+        
+    - name: Verify installations
+      run: |
+        which fish
+        which hx
+        which starship
+        
+  test-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Test installation on Ubuntu
+      run: |
+        bash install.sh
+        
+    - name: Verify installations
+      run: |
+        which fish
+        which hx
+        which starship

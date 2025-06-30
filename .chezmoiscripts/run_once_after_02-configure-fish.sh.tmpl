@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -eufo pipefail
+
+# Add fish to valid shells if not already added
+if ! grep -q "$(which fish)" /etc/shells; then
+    echo "Adding fish to /etc/shells..."
+    echo "$(which fish)" | sudo tee -a /etc/shells
+fi
+
+# Set fish as default shell if not in GitHub Codespaces
+if [ -z "${CODESPACES:-}" ]; then
+    if [ "$SHELL" != "$(which fish)" ]; then
+        echo "Setting fish as default shell..."
+        chsh -s "$(which fish)"
+    fi
+else
+    echo "Skipping shell change in GitHub Codespaces"
+fi
+
+# Install Fisher plugin manager
+fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher" || true
+
+echo "Fish shell configuration complete!"

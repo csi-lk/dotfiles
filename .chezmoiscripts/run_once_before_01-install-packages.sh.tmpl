@@ -1,0 +1,129 @@
+#!/bin/bash
+
+set -eufo pipefail
+
+{{ $packages := list
+     "fish"
+     "helix"
+     "starship"
+     "zoxide"
+     "fzf"
+     "fd"
+     "ripgrep"
+     "bat"
+     "eza"
+     "git"
+     "gh"
+     "tmux" -}}
+
+{{ $taps := list -}}
+{{ $casks := list 
+     "ghostty" -}}
+
+{{ if eq .chezmoi.os "darwin" -}}
+echo "Setting up macOS..."
+
+# Install Homebrew if not installed
+if ! command -v brew >/dev/null 2>&1; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    
+    # Add Homebrew to PATH for Apple Silicon Macs
+    if [[ -d "/opt/homebrew" ]]; then
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+fi
+
+# Update Homebrew
+brew update
+
+# Install taps
+{{ range $taps -}}
+brew tap {{ . | quote }}
+{{ end -}}
+
+# Install packages
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range $packages -}}
+brew {{ . | quote }}
+{{ end -}}
+{{ range $casks -}}
+cask {{ . | quote }}
+{{ end -}}
+EOF
+
+{{ else if eq .chezmoi.os "linux" -}}
+echo "Setting up Linux..."
+
+# Detect distribution
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    OS=$ID
+fi
+
+case "$OS" in
+    ubuntu|debian)
+        echo "Detected Debian/Ubuntu"
+        
+        # Update package lists
+        sudo apt-get update
+        
+        # Install packages
+        {{ range $packages -}}
+        {{ if eq . "eza" -}}
+        # Install eza from cargo or download binary
+        if ! command -v eza >/dev/null 2>&1; then
+            if command -v cargo >/dev/null 2>&1; then
+                cargo install eza
+            else
+                # Download pre-built binary
+                curl -Lo eza.tar.gz "https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz"
+                sudo tar xzf eza.tar.gz -C /usr/local/bin
+                rm eza.tar.gz
+            fi
+        fi
+        {{ else if eq . "starship" -}}
+        # Install starship
+        if ! command -v starship >/dev/null 2>&1; then
+            curl -sS https://starship.rs/install.sh | sh -s -- -y
+        fi
+        {{ else if eq . "helix" -}}
+        # Install helix
+        if ! command -v hx >/dev/null 2>&1; then
+            sudo add-apt-repository ppa:maveonair/helix-editor -y
+            sudo apt-get update
+            sudo apt-get install -y helix
+        fi
+        {{ else if eq . "zoxide" -}}
+        # Install zoxide
+        if ! command -v zoxide >/dev/null 2>&1; then
+            curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+        fi
+        {{ else if eq . "gh" -}}
+        # Install GitHub CLI
+        if ! command -v gh >/dev/null 2>&1; then
+            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+            sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+            sudo apt update
+            sudo apt install gh -y
+        fi
+        {{ else -}}
+        sudo apt-get install -y {{ . }}
+        {{ end -}}
+        {{ end -}}
+        
+        # Install ghostty if in GitHub Codespaces (build from source or skip)
+        if [ -n "${CODESPACES:-}" ]; then
+            echo "Ghostty is not available for Linux server environments"
+        fi
+        ;;
+    *)
+        echo "Unsupported distribution: $OS"
+        exit 1
+        ;;
+esac
+{{ end -}}
+
+echo "Package installation complete!"

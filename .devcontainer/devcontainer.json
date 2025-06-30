@@ -1,0 +1,37 @@
+{
+  "name": "Dotfiles Development",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": false,
+      "installOhMyZsh": false,
+      "upgradePackages": true,
+      "username": "vscode"
+    },
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  
+  "postCreateCommand": "bash -c 'if [ -f install.sh ]; then bash install.sh; fi'",
+  
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "fish",
+        "terminal.integrated.profiles.linux": {
+          "fish": {
+            "path": "/usr/bin/fish"
+          }
+        }
+      },
+      "extensions": [
+        "tamasfe.even-better-toml",
+        "EditorConfig.EditorConfig"
+      ]
+    }
+  },
+  
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true
+}
