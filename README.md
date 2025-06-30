@@ -168,6 +168,75 @@ Make sure scripts are executable:
 chmod +x ~/.local/share/chezmoi/.chezmoiscripts/*
 ```
 
+## Keyboard Shortcuts Cheatsheet
+
+### Global (macOS)
+| Shortcut | Action |
+|----------|--------|
+| `Cmd+H/J/K/L` | Focus window (left/down/up/right) |
+| `Cmd+Shift+H/J/K/L` | Move window |
+| `Cmd+1-9` | Switch to workspace |
+| `Cmd+Shift+1-9` | Move window to workspace |
+| `Cmd+F` | Fullscreen toggle |
+| `Cmd+T` | Cycle layouts |
+| `Cmd+R` | Enter resize mode |
+
+### Fish Shell
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+W` | Window finder (ff) |
+| `Alt+W` | Workspace switcher (fw) |
+| `Ctrl+F` | Project sessionizer (tmux) |
+| `Ctrl+T` | Fuzzy find directory |
+| `Ctrl+R` | Search command history |
+| `Ctrl+G` | Git log search |
+| `Ctrl+S` | Git status search |
+
+### Tmux (Prefix: `Ctrl+A`)
+| Shortcut | Action |
+|----------|--------|
+| `Prefix + \|` | Split vertically |
+| `Prefix + -` | Split horizontally |
+| `Prefix + h/j/k/l` | Navigate panes |
+| `Alt+h/j/k/l` | Navigate panes (no prefix) |
+| `Prefix + H/J/K/L` | Resize panes |
+| `Prefix + S` | Create new session |
+| `Prefix + s` | Switch sessions |
+| `Prefix + Enter` | Copy mode |
+| `Prefix + r` | Reload config |
+| `Prefix + I` | Install plugins |
+
+### Helix Editor
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+S` | Save file |
+| `Ctrl+Q` | Quit |
+| `Ctrl+C` | Center cursor |
+| `Ctrl+Alt+L` | Format document |
+| `Ctrl+E` | File explorer |
+| `Space+q` | Close buffer |
+| `Space+w` | Save |
+| `Space+r` | Rename symbol |
+| `Space+a` | Code actions |
+| `Space+h` | Hover info |
+| `Space+d` | Diagnostics picker |
+| `g+d` | Go to definition |
+| `g+r` | Go to references |
+| `[d` / `]d` | Previous/next diagnostic |
+| `Ctrl+Space` | Trigger completion (insert mode) |
+
+### Chezmoi Aliases
+| Command | Action |
+|---------|--------|
+| `cm` | chezmoi |
+| `cma` | Apply changes |
+| `cmaf` | Apply force |
+| `cmd` | Show diff |
+| `cme` | Edit file |
+| `cmcd` | Go to dotfiles |
+| `cms` | Show status |
+| `cm-help` | Show all aliases |
+
 ## License
 
 Unlicense
