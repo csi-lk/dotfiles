@@ -226,11 +226,25 @@ echo ""
 echo "Installed packages summary:"
 echo "=========================="
 {{ range $packages -}}
+{{ if eq . "helix" -}}
+if command -v hx >/dev/null 2>&1; then
+    echo "✓ helix (hx)"
+else
+    echo "✗ helix (not found)"
+fi
+{{ else if eq . "ripgrep" -}}
+if command -v rg >/dev/null 2>&1; then
+    echo "✓ ripgrep (rg)"
+else
+    echo "✗ ripgrep (not found)"
+fi
+{{ else -}}
 if command -v {{ . }} >/dev/null 2>&1; then
     echo "✓ {{ . }}"
 else
     echo "✗ {{ . }} (not found)"
 fi
+{{ end -}}
 {{ end -}}
 
 # Special cases
