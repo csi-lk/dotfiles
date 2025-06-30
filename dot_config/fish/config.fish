@@ -27,6 +27,16 @@ alias cd="z"
 alias vim="hx"
 alias vi="hx"
 
+# Chezmoi aliases
+alias cm="chezmoi"
+alias cma="chezmoi apply"
+alias cmaf="chezmoi apply --force"
+alias cmd="chezmoi diff"
+alias cme="chezmoi edit"
+alias cmcd="cd (chezmoi source-path)"
+alias cms="chezmoi status"
+alias cmu="chezmoi update"
+
 # Common PATH additions
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.cargo/bin

@@ -52,7 +52,11 @@ brew tap {{ . | quote }}
 {{ end -}}
 
 # First try to update brew to fix potential issues
-brew update-reset || true
+echo "Checking Homebrew..."
+brew update || {
+    echo "Homebrew update failed, continuing without update..."
+    echo "You may want to run 'brew update-reset' manually later"
+}
 
 # Install packages individually to handle failures better
 echo "Installing packages..."
