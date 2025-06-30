@@ -1,0 +1,6 @@
+#!/bin/bash
+# GitHub looks for an 'install' script (without .sh extension)
+# This is a wrapper that calls our main install.sh
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+exec "$SCRIPT_DIR/install.sh" "$@"

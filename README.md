@@ -94,7 +94,30 @@ Use chezmoi's templating for OS-specific settings:
 
 ## GitHub Codespaces
 
-This repository is configured to work seamlessly with GitHub Codespaces. When you create a new codespace, all tools and configurations will be automatically installed.
+This repository is configured to work seamlessly with GitHub Codespaces. 
+
+### Automatic Setup
+
+1. Go to [GitHub Codespaces Settings](https://github.com/settings/codespaces)
+2. Enable "Automatically install dotfiles"
+3. Select this repository
+4. All new Codespaces will automatically have your environment
+
+### Manual Setup (for existing Codespaces)
+
+```bash
+cd /workspaces/.codespaces/.persistedshare/dotfiles
+./install.sh --codespaces
+```
+
+### What's Included in Codespaces
+
+- Fish shell as default terminal
+- All CLI tools pre-installed
+- VS Code extensions for frontend development
+- Helix editor with full LSP support
+- Auto-forwarding for common dev ports (3000, 5173, 8080, etc.)
+- Optimized for 2+ CPU cores and 4GB+ RAM
 
 ## Updates
 

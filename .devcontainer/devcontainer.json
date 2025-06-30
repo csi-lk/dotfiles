@@ -1,19 +1,40 @@
 {
-  "name": "Dotfiles Development",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "name": "Development Environment",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
   
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "installZsh": false,
       "installOhMyZsh": false,
+      "configureZshAsDefaultShell": false,
       "upgradePackages": true,
       "username": "vscode"
     },
-    "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/devcontainers/features/github-cli:1": {}
+    "ghcr.io/devcontainers/features/git:1": {
+      "ppa": true,
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "installDirectlyFromGitHubRelease": true,
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts",
+      "nodeGypDependencies": true
+    },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11",
+      "installTools": true
+    },
+    "ghcr.io/devcontainers/features/rust:1": {
+      "version": "latest",
+      "profile": "default"
+    }
   },
   
-  "postCreateCommand": "bash -c 'if [ -f install.sh ]; then bash install.sh; fi'",
+  "postCreateCommand": "/bin/bash -c 'if [ -f install.sh ]; then bash install.sh --codespaces; fi'",
+  
+  "postStartCommand": "/bin/bash -c 'if command -v fish >/dev/null 2>&1; then echo \"fish is ready\"; else echo \"fish not found, run install.sh\"; fi'",
   
   "customizations": {
     "vscode": {
@@ -21,17 +42,96 @@
         "terminal.integrated.defaultProfile.linux": "fish",
         "terminal.integrated.profiles.linux": {
           "fish": {
-            "path": "/usr/bin/fish"
+            "path": "fish",
+            "args": []
           }
-        }
+        },
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[typescriptreact]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[javascriptreact]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[json]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[jsonc]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[html]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[css]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[scss]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[markdown]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "typescript.updateImportsOnFileMove.enabled": "always",
+        "javascript.updateImportsOnFileMove.enabled": "always",
+        "typescript.preferences.includePackageJsonAutoImports": "auto",
+        "javascript.preferences.includePackageJsonAutoImports": "auto",
+        "emmet.includeLanguages": {
+          "javascript": "javascriptreact",
+          "typescript": "typescriptreact"
+        },
+        "tailwindCSS.emmetCompletions": true
       },
       "extensions": [
         "tamasfe.even-better-toml",
-        "EditorConfig.EditorConfig"
+        "EditorConfig.EditorConfig",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "formulahendry.auto-rename-tag",
+        "christian-kohler.path-intellisense",
+        "mikestead.dotenv",
+        "usernamehw.errorlens",
+        "eamodio.gitlens",
+        "wix.vscode-import-cost",
+        "Prisma.prisma",
+        "GraphQL.vscode-graphql",
+        "Vue.volar",
+        "svelte.svelte-vscode",
+        "astro-build.astro-vscode"
       ]
     }
   },
   
   "remoteUser": "vscode",
-  "updateRemoteUserUID": true
+  "updateRemoteUserUID": true,
+  
+  "forwardPorts": [3000, 3001, 4000, 5000, 5173, 5174, 8000, 8080, 8081],
+  
+  "portsAttributes": {
+    "3000": {
+      "label": "Development Server",
+      "onAutoForward": "notify"
+    },
+    "5173": {
+      "label": "Vite Dev Server",
+      "onAutoForward": "notify"
+    },
+    "8080": {
+      "label": "Backend Server",
+      "onAutoForward": "notify"
+    }
+  },
+  
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "4gb",
+    "storage": "32gb"
+  }
 }

@@ -3,6 +3,22 @@
 set -euo pipefail
 
 CHEZMOI_VERSION="2.47.1"
+CODESPACES_MODE=false
+
+# Parse arguments
+for arg in "$@"; do
+    case $arg in
+        --codespaces)
+            CODESPACES_MODE=true
+            shift
+            ;;
+        --help|-h)
+            echo "Usage: $0 [--codespaces]"
+            echo "  --codespaces  Run in GitHub Codespaces mode"
+            exit 0
+            ;;
+    esac
+done
 
 # Colors for output
 RED='\033[0;31m'
@@ -64,6 +80,10 @@ install_chezmoi() {
 
 # Main installation
 main() {
+    if [ "$CODESPACES_MODE" = true ] || [ -n "${CODESPACES:-}" ]; then
+        info "Running in GitHub Codespaces mode..."
+    fi
+    
     info "Starting dotfiles installation..."
     
     # Check if we're in the dotfiles repo
@@ -76,22 +96,33 @@ main() {
     
     # Initialize chezmoi with this repository
     info "Initializing chezmoi..."
-    if [ -n "${CODESPACES:-}" ]; then
-        # GitHub Codespaces
-        chezmoi init --apply --source="$PWD"
-    else
-        # Regular installation
-        chezmoi init --apply --source="$PWD"
+    chezmoi init --apply --source="$PWD"
+    
+    # For Codespaces, ensure fish is set as default terminal
+    if [ "$CODESPACES_MODE" = true ] || [ -n "${CODESPACES:-}" ]; then
+        # Create a terminal profile for VS Code
+        mkdir -p "$HOME/.local/share/code-server/User"
+        cat > "$HOME/.local/share/code-server/User/settings.json" << 'EOF'
+{
+    "terminal.integrated.defaultProfile.linux": "fish"
+}
+EOF
     fi
     
     info "Installation complete!"
     info ""
     info "Next steps:"
-    info "1. Restart your terminal or run: exec fish"
-    info "2. All your tools should be configured and ready to use"
+    if [ "$CODESPACES_MODE" = true ] || [ -n "${CODESPACES:-}" ]; then
+        info "1. Your terminal will use fish shell automatically"
+        info "2. All development tools are configured and ready"
+        info "3. Run 'helix-lsp-status' to check language server status"
+    else
+        info "1. Restart your terminal or run: exec fish"
+        info "2. All your tools should be configured and ready to use"
+    fi
     info ""
     info "To update your dotfiles later, run: chezmoi update"
 }
 
 # Run main function
-main "$@"
+main

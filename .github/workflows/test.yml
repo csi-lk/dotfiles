@@ -22,6 +22,7 @@ jobs:
         which fish
         which hx
         which starship
+        fish -c "echo 'Fish shell works'"
         
   test-ubuntu:
     runs-on: ubuntu-latest
@@ -37,3 +38,42 @@ jobs:
         which fish
         which hx
         which starship
+        fish -c "echo 'Fish shell works'"
+        
+  test-codespaces:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/devcontainers/base:ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Simulate Codespaces environment
+      run: |
+        export CODESPACES=true
+        export CODESPACE_NAME=test
+        bash install.sh --codespaces
+        
+    - name: Verify Codespaces setup
+      run: |
+        which fish
+        which hx
+        which starship
+        fish -c "echo 'Fish shell works in Codespaces'"
+        
+    - name: Check LSP installation script
+      run: |
+        test -f "$HOME/.local/bin/helix-lsp-status"
+        
+  test-install-script:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Test install wrapper script
+      run: |
+        ./install
+        
+    - name: Verify wrapper works
+      run: |
+        which fish
+        which chezmoi
