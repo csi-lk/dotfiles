@@ -1,0 +1,121 @@
+#!/bin/bash
+
+set -eufo pipefail
+
+echo "Installing Language Servers for Helix..."
+
+# Check if npm is available
+if ! command -v npm >/dev/null 2>&1; then
+    echo "npm not found, skipping LSP installation"
+    exit 0
+fi
+
+# Frontend/JavaScript LSPs
+echo "Installing TypeScript/JavaScript language servers..."
+npm install -g \
+    typescript \
+    typescript-language-server \
+    vscode-langservers-extracted \
+    @tailwindcss/language-server \
+    emmet-ls \
+    graphql-language-service-cli \
+    @prisma/language-server \
+    yaml-language-server \
+    marksman \
+    @astrojs/language-server \
+    vue-language-server \
+    svelte-language-server \
+    prettier || true
+
+# Install markdown-oxide if cargo is available
+if command -v cargo >/dev/null 2>&1; then
+    echo "Installing markdown-oxide..."
+    cargo install markdown-oxide || true
+fi
+
+# Python LSPs (if Python is available)
+if command -v python3 >/dev/null 2>&1; then
+    echo "Installing Python language servers..."
+    pip3 install --user python-lsp-server ruff-lsp black || true
+fi
+
+# Rust LSP (if rustup is available)
+if command -v rustup >/dev/null 2>&1; then
+    echo "Installing Rust analyzer..."
+    rustup component add rust-analyzer || true
+fi
+
+# Go LSP (if go is available)
+if command -v go >/dev/null 2>&1; then
+    echo "Installing gopls..."
+    go install golang.org/x/tools/gopls@latest || true
+fi
+
+# Install taplo for TOML formatting
+if command -v cargo >/dev/null 2>&1; then
+    echo "Installing taplo..."
+    cargo install taplo-cli || true
+else
+    # Try to install via npm as fallback
+    npm install -g @taplo/cli || true
+fi
+
+echo "Language server installation complete!"
+
+# Create a helper script to check LSP status
+cat > "$HOME/.local/bin/helix-lsp-status" << 'EOF'
+#!/bin/bash
+echo "Checking Helix LSP status..."
+echo ""
+echo "Installed language servers:"
+echo ""
+
+check_lsp() {
+    if command -v "$1" >/dev/null 2>&1; then
+        echo "✓ $1 ($(command -v "$1"))"
+    else
+        echo "✗ $1 (not found)"
+    fi
+}
+
+# JavaScript/TypeScript
+echo "Frontend Development:"
+check_lsp "typescript-language-server"
+check_lsp "vscode-eslint-language-server"
+check_lsp "vscode-html-language-server"
+check_lsp "vscode-css-language-server"
+check_lsp "vscode-json-language-server"
+check_lsp "emmet-ls"
+check_lsp "tailwindcss-language-server"
+check_lsp "prettier"
+
+echo ""
+echo "Framework Support:"
+check_lsp "vue-language-server"
+check_lsp "svelteserver"
+check_lsp "astro-ls"
+
+echo ""
+echo "Other Languages:"
+check_lsp "yaml-language-server"
+check_lsp "marksman"
+check_lsp "markdown-oxide"
+check_lsp "graphql-lsp"
+check_lsp "prisma-language-server"
+check_lsp "taplo"
+
+echo ""
+echo "Backend Languages:"
+check_lsp "rust-analyzer"
+check_lsp "pylsp"
+check_lsp "ruff-lsp"
+check_lsp "gopls"
+
+echo ""
+echo "To test LSP in Helix, open a file and run :lsp-workspace-command"
+EOF
+
+chmod +x "$HOME/.local/bin/helix-lsp-status"
+
+echo ""
+echo "Run 'helix-lsp-status' to check which language servers are installed."

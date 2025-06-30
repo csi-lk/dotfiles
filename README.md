@@ -44,9 +44,14 @@ cd dotfiles
 - **Zoxide** - Smarter cd command
 
 ### Editor
-- **Helix** - Modern text editor with built-in LSP support
-- Custom keybindings and theme
-- Language-specific formatters
+- **Helix** - Modern text editor optimized for frontend development:
+  - Full TypeScript/JavaScript LSP support with auto-imports
+  - React, Vue, Svelte, and Astro framework support
+  - Tailwind CSS intellisense
+  - ESLint integration
+  - Prettier formatting on save
+  - Emmet completions
+  - Custom keybindings for productivity
 
 ### Terminal
 - **Ghostty** - Fast, feature-rich terminal (macOS only)

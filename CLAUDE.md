@@ -90,6 +90,35 @@ chezmoi data
 3. **Chezmoi over symlinks**: Better handling of OS differences, secrets management
 4. **Minimal approach**: Only essential tools, avoid bloat
 
+## Helix Frontend Development Setup
+
+The Helix configuration is optimized for frontend development with:
+
+### Language Servers
+- **TypeScript/JavaScript**: Full IntelliSense, auto-imports, refactoring
+- **ESLint**: Real-time linting in the editor
+- **Prettier**: Format on save for consistent code style
+- **Tailwind CSS**: Class name completions and hover docs
+- **Emmet**: HTML/JSX expansions
+
+### Supported Frameworks
+- React (TSX/JSX)
+- Vue 3
+- Svelte
+- Astro
+- Vanilla JS/TS
+
+### Key Bindings
+- `Space + r`: Rename symbol
+- `Space + a`: Code actions (auto-import, fix errors)
+- `g + d`: Go to definition
+- `Space + d`: Diagnostics picker
+- `Ctrl + Space`: Trigger completion (insert mode)
+- `Ctrl + Alt + l`: Format document
+
+### Checking LSP Status
+Run `helix-lsp-status` to see which language servers are installed.
+
 ## GitHub Codespaces Support
 
 The repository automatically configures Codespaces through `.devcontainer/devcontainer.json`. Fish shell is set as the default terminal, and all tools are installed automatically.

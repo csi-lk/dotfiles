@@ -1,3 +1,196 @@
+# TypeScript / JavaScript
+[[language]]
+name = "typescript"
+scope = "source.ts"
+injection-regex = "(ts|typescript)"
+file-types = ["ts", "mts", "cts"]
+language-id = "typescript"
+shebangs = ["deno"]
+language-servers = ["typescript-language-server", "eslint", "emmet-lsp", "tailwindcss-ls"]
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "tsx"
+scope = "source.tsx"
+injection-regex = "(tsx)"
+language-id = "typescriptreact"
+file-types = ["tsx"]
+language-servers = ["typescript-language-server", "eslint", "emmet-lsp", "tailwindcss-ls"]
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "javascript"
+scope = "source.js"
+injection-regex = "(js|javascript)"
+language-id = "javascript"
+file-types = ["js", "mjs", "cjs"]
+shebangs = ["node"]
+language-servers = ["typescript-language-server", "eslint", "emmet-lsp", "tailwindcss-ls"]
+formatter = { command = "prettier", args = ["--parser", "javascript"] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "jsx"
+scope = "source.jsx"
+injection-regex = "(jsx)"
+language-id = "javascriptreact"
+file-types = ["jsx"]
+language-servers = ["typescript-language-server", "eslint", "emmet-lsp", "tailwindcss-ls"]
+formatter = { command = "prettier", args = ["--parser", "javascript"] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+# Web Technologies
+[[language]]
+name = "html"
+scope = "text.html.basic"
+injection-regex = "html"
+file-types = ["html", "htm", "xhtml"]
+language-servers = ["vscode-html-language-server", "emmet-lsp", "tailwindcss-ls"]
+formatter = { command = "prettier", args = ["--parser", "html"] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "css"
+scope = "source.css"
+injection-regex = "css"
+file-types = ["css"]
+language-servers = ["vscode-css-language-server", "emmet-lsp", "tailwindcss-ls"]
+formatter = { command = "prettier", args = ["--parser", "css"] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "scss"
+scope = "source.scss"
+injection-regex = "scss"
+file-types = ["scss", "sass"]
+language-servers = ["vscode-css-language-server", "emmet-lsp"]
+formatter = { command = "prettier", args = ["--parser", "scss"] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+# Frameworks & Libraries
+[[language]]
+name = "vue"
+scope = "source.vue"
+injection-regex = "vue"
+file-types = ["vue"]
+language-servers = ["vue-language-server", "eslint", "emmet-lsp", "tailwindcss-ls"]
+formatter = { command = "prettier", args = ["--parser", "vue"] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "svelte"
+scope = "source.svelte"
+injection-regex = "svelte"
+file-types = ["svelte"]
+language-servers = ["svelteserver", "eslint", "emmet-lsp", "tailwindcss-ls"]
+formatter = { command = "prettier", args = ["--parser", "svelte", "--plugin-search-dir", "."] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "astro"
+scope = "source.astro"
+injection-regex = "astro"
+file-types = ["astro"]
+language-servers = ["astro-ls", "eslint", "emmet-lsp", "tailwindcss-ls"]
+formatter = { command = "prettier", args = ["--parser", "astro", "--plugin-search-dir", "."] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+# Data & Config
+[[language]]
+name = "json"
+scope = "source.json"
+injection-regex = "json"
+file-types = ["json", "jsonc", "arb", "ipynb", "geojson"]
+language-servers = ["vscode-json-language-server"]
+formatter = { command = "prettier", args = ["--parser", "json"] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "jsonc"
+scope = "source.jsonc"
+injection-regex = "jsonc"
+file-types = ["jsonc"]
+language-servers = ["vscode-json-language-server"]
+formatter = { command = "prettier", args = ["--parser", "jsonc"] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "yaml"
+scope = "source.yaml"
+injection-regex = "yaml"
+file-types = ["yaml", "yml"]
+language-servers = ["yaml-language-server"]
+formatter = { command = "prettier", args = ["--parser", "yaml"] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "toml"
+scope = "source.toml"
+injection-regex = "toml"
+file-types = ["toml"]
+formatter = { command = "taplo", args = ["fmt", "-"] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+# Documentation
+[[language]]
+name = "markdown"
+scope = "source.md"
+injection-regex = "md|markdown"
+file-types = ["md", "markdown", "mdx"]
+language-servers = ["marksman", "markdown-oxide"]
+formatter = { command = "prettier", args = ["--parser", "markdown"] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "mdx"
+scope = "source.mdx"
+injection-regex = "mdx"
+file-types = ["mdx"]
+language-servers = ["marksman", "typescript-language-server"]
+formatter = { command = "prettier", args = ["--parser", "mdx"] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+# GraphQL
+[[language]]
+name = "graphql"
+scope = "source.graphql"
+injection-regex = "graphql"
+file-types = ["gql", "graphql", "graphqls"]
+language-servers = ["graphql-lsp"]
+formatter = { command = "prettier", args = ["--parser", "graphql"] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+# Backend (Node.js common)
+[[language]]
+name = "prisma"
+scope = "source.prisma"
+injection-regex = "prisma"
+file-types = ["prisma"]
+language-servers = ["prisma-language-server"]
+formatter = { command = "prisma", args = ["format", "--stdin"] }
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+# Other Languages
 [[language]]
 name = "rust"
 auto-format = true
@@ -6,34 +199,107 @@ formatter = { command = "rustfmt", args = ["--emit=stdout"] }
 [[language]]
 name = "python"
 auto-format = true
+language-servers = ["pylsp", "ruff"]
 formatter = { command = "black", args = ["-", "--quiet"] }
 
 [[language]]
-name = "javascript"
+name = "go"
 auto-format = true
-formatter = { command = "prettier", args = ["--parser", "javascript"] }
+formatter = { command = "gofmt" }
 
-[[language]]
-name = "typescript"
-auto-format = true
-formatter = { command = "prettier", args = ["--parser", "typescript"] }
+# Language Server Configurations
+[language-server.typescript-language-server]
+command = "typescript-language-server"
+args = ["--stdio"]
+config.hostInfo = "helix"
+config.preferences.includeCompletionsForModuleExports = true
+config.preferences.includeCompletionsWithInsertText = true
+config.preferences.includeCompletionsWithSnippetText = true
+config.preferences.includeAutomaticOptionalChainCompletions = true
+config.preferences.includeCompletionsWithClassMemberSnippets = true
+config.preferences.includeCompletionsWithObjectLiteralMethodSnippets = true
+config.preferences.useLabelDetailsInCompletionEntries = true
+config.preferences.allowIncompleteCompletions = true
+config.preferences.importModuleSpecifierPreference = "shortest"
+config.preferences.providePrefixAndSuffixTextForRename = false
+config.preferences.allowRenameOfImportPath = true
+config.preferences.includePackageJsonAutoImports = "auto"
+config.completions.completeFunctionCalls = true
+config.inlayHints.includeInlayParameterNameHints = "all"
+config.inlayHints.includeInlayParameterNameHintsWhenArgumentMatchesName = true
+config.inlayHints.includeInlayFunctionParameterTypeHints = true
+config.inlayHints.includeInlayVariableTypeHints = true
+config.inlayHints.includeInlayPropertyDeclarationTypeHints = true
+config.inlayHints.includeInlayFunctionLikeReturnTypeHints = true
+config.inlayHints.includeInlayEnumMemberValueHints = true
 
-[[language]]
-name = "json"
-auto-format = true
-formatter = { command = "prettier", args = ["--parser", "json"] }
+[language-server.eslint]
+command = "vscode-eslint-language-server"
+args = ["--stdio"]
 
-[[language]]
-name = "markdown"
-auto-format = true
-formatter = { command = "prettier", args = ["--parser", "markdown"] }
+[language-server.emmet-lsp]
+command = "emmet-language-server"
+args = ["--stdio"]
 
-[[language]]
-name = "yaml"
-auto-format = true
-formatter = { command = "prettier", args = ["--parser", "yaml"] }
+[language-server.tailwindcss-ls]
+command = "tailwindcss-language-server"
+args = ["--stdio"]
+config.tailwindCSS.includeLanguages = { "erb" = "html", "eelixir" = "html", "heex" = "html" }
+config.tailwindCSS.emmetCompletions = true
 
-[[language]]
-name = "toml"
-auto-format = true
-formatter = { command = "taplo", args = ["fmt", "-"] }
+[language-server.vscode-html-language-server]
+command = "vscode-html-language-server"
+args = ["--stdio"]
+config.html.format.enable = true
+config.html.suggest.html5 = true
+
+[language-server.vscode-css-language-server]
+command = "vscode-css-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-json-language-server]
+command = "vscode-json-language-server"
+args = ["--stdio"]
+config.json.schemas = [
+  { fileMatch = ["package.json"], url = "https://json.schemastore.org/package.json" },
+  { fileMatch = ["tsconfig.json", "tsconfig.*.json"], url = "https://json.schemastore.org/tsconfig.json" },
+  { fileMatch = [".eslintrc.json", ".eslintrc"], url = "https://json.schemastore.org/eslintrc.json" },
+  { fileMatch = [".prettierrc.json", ".prettierrc"], url = "https://json.schemastore.org/prettierrc.json" },
+]
+
+[language-server.yaml-language-server]
+command = "yaml-language-server"
+args = ["--stdio"]
+
+[language-server.marksman]
+command = "marksman"
+args = ["server"]
+
+[language-server.markdown-oxide]
+command = "markdown-oxide"
+
+[language-server.graphql-lsp]
+command = "graphql-lsp"
+args = ["server", "-m", "stream"]
+
+[language-server.vue-language-server]
+command = "vue-language-server"
+args = ["--stdio"]
+
+[language-server.svelteserver]
+command = "svelteserver"
+args = ["--stdio"]
+
+[language-server.astro-ls]
+command = "astro-ls"
+args = ["--stdio"]
+
+[language-server.prisma-language-server]
+command = "prisma-language-server"
+args = ["--stdio"]
+
+[language-server.ruff]
+command = "ruff-lsp"
+
+[language-server.pylsp]
+command = "pylsp"
