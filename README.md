@@ -6,7 +6,7 @@ Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/) for macOS and 
 
 - 🐟 **Fish shell** with useful plugins and aliases
 - 📝 **Helix editor** with language-specific configurations
-- 🖥️ **Ghostty terminal** with custom theme
+- 🖥️ **iTerm2** with Monokai Soda theme and FiraCode Nerd Font
 - 🚀 **Modern CLI tools**: starship, zoxide, fzf, ripgrep, bat, eza
 - 🔧 **Automatic setup** for different operating systems
 - 🌐 **GitHub Codespaces** ready
@@ -55,9 +55,10 @@ cd dotfiles
   - Custom keybindings for productivity
 
 ### Terminal
-- **Ghostty** - Fast, feature-rich terminal (macOS only)
-- Custom One Dark theme
-- Optimized settings
+- **iTerm2** - Feature-rich terminal emulator (macOS only)
+- Monokai Soda color scheme
+- FiraCode Nerd Font with ligatures
+- Dynamic profile configuration
 
 ### CLI Tools
 - **fzf** - Fuzzy finder
@@ -82,6 +83,10 @@ cd dotfiles
   - System monitoring widgets with Nerd Font icons
   - Window and space indicators
   - Battery, CPU, memory, and network status
+- **Karabiner-Elements** - Advanced keyboard customization:
+  - Caps Lock as Super/Hyper key
+  - Application launcher shortcuts
+  - Firefox tab switching shortcuts
 
 ## Customization
 
@@ -174,6 +179,17 @@ chmod +x ~/.local/share/chezmoi/.chezmoiscripts/*
 | `Cmd+F` | Fullscreen toggle |
 | `Cmd+T` | Cycle layouts |
 | `Cmd+R` | Enter resize mode |
+
+### Karabiner-Elements (Caps Lock as Super Key)
+| Shortcut | Action |
+|----------|--------|
+| `Caps Lock + C` | Open/focus Calendar |
+| `Caps Lock + F` | Open/focus Firefox |
+| `Caps Lock + S` | Open/focus Slack |
+| `Caps Lock + V` | Open/focus Visual Studio Code |
+| `Caps Lock + O` | Open/focus Obsidian |
+| `Caps Lock + M` | Firefox → Tab 1 |
+| `Caps Lock + T` | Firefox → Tab 2 |
 
 ### Fish Shell
 | Shortcut | Action |
