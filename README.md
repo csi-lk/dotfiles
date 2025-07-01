@@ -6,7 +6,7 @@ Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/) for macOS and 
 
 - 🐟 **Fish shell** with useful plugins and aliases
 - 📝 **Helix editor** with language-specific configurations
-- 🖥️ **iTerm2** with Monokai Soda theme and FiraCode Nerd Font
+- 🖥️ **Warp** - Modern, AI-powered terminal with built-in features
 - 🚀 **Modern CLI tools**: starship, zoxide, fzf, ripgrep, bat, eza
 - 🔧 **Automatic setup** for different operating systems
 - 🌐 **GitHub Codespaces** ready
@@ -55,10 +55,10 @@ cd dotfiles
   - Custom keybindings for productivity
 
 ### Terminal
-- **iTerm2** - Feature-rich terminal emulator (macOS only)
-- Monokai Soda color scheme
-- FiraCode Nerd Font with ligatures
-- Dynamic profile configuration
+- **Warp** - AI-powered terminal with modern features (macOS only)
+- Built-in command palette and AI assistance
+- Native performance with GPU acceleration
+- Automatic command history and sharing
 
 ### CLI Tools
 - **fzf** - Fuzzy finder
