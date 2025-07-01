@@ -62,7 +62,6 @@ if [ $FOUND -eq 0 ]; then
     echo "may not be configured to use a Nerd Font."
     echo ""
     echo "Terminal font configuration:"
-    echo "- Ghostty: Already configured to use FiraCode Nerd Font"
     echo "- VS Code: Set terminal.integrated.fontFamily to 'FiraCode Nerd Font'"
     echo "- iTerm2: Preferences → Profiles → Text → Font"
     echo "- Other: Check your terminal's font settings"

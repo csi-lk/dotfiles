@@ -27,8 +27,7 @@ set -eufo pipefail
 
 {{ $taps := list 
      "FelixKratz/formulae" -}}
-{{ $casks := list 
-     "ghostty" -}}
+{{ $casks := list -}}
 
 {{ if eq .chezmoi.os "darwin" -}}
 echo "Setting up macOS..."
@@ -208,10 +207,6 @@ case "$OS" in
             echo "FiraCode Nerd Font already installed"
         fi
         
-        # Install ghostty if in GitHub Codespaces (build from source or skip)
-        if [ -n "${CODESPACES:-}" ]; then
-            echo "Ghostty is not available for Linux server environments"
-        fi
         ;;
     *)
         echo "Unsupported distribution: $OS"
