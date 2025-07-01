@@ -6,7 +6,6 @@ Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/) for macOS and 
 
 - 🐟 **Fish shell** with useful plugins and aliases
 - 📝 **Helix editor** with language-specific configurations
-- 🖥️ **Warp** - Modern, AI-powered terminal with built-in features
 - 🚀 **Modern CLI tools**: starship, zoxide, fzf, ripgrep, bat, eza
 - 🔧 **Automatic setup** for different operating systems
 - 🌐 **GitHub Codespaces** ready
@@ -53,12 +52,6 @@ cd dotfiles
   - Prettier formatting on save
   - Emmet completions
   - Custom keybindings for productivity
-
-### Terminal
-- **Warp** - AI-powered terminal with modern features (macOS only)
-- Built-in command palette and AI assistance
-- Native performance with GPU acceleration
-- Automatic command history and sharing
 
 ### CLI Tools
 - **fzf** - Fuzzy finder
