@@ -1,10 +1,19 @@
 # Nerd Fonts detection and configuration
 
-# Function to check if Nerd Fonts are available
-function __has_nerd_fonts
+# Cache file location for font detection result
+set -l cache_file "$HOME/.cache/fish/nerd-fonts-detected"
+set -l cache_dir (dirname $cache_file)
+
+# Create cache directory if it doesn't exist
+if not test -d $cache_dir
+    mkdir -p $cache_dir
+end
+
+# Function to check if Nerd Fonts are available (without cache)
+function __check_nerd_fonts_uncached
     switch (uname)
         case Darwin
-            # macOS: Check using system_profiler (faster than parsing all fonts)
+            # macOS: Check using system_profiler (slow but accurate)
             system_profiler SPFontsDataType 2>/dev/null | grep -q "Nerd Font"
         case Linux
             # Linux: Check using fc-list
@@ -12,6 +21,31 @@ function __has_nerd_fonts
         case '*'
             # Unknown system, assume no Nerd Fonts
             return 1
+    end
+end
+
+# Function to check if Nerd Fonts are available (with caching)
+function __has_nerd_fonts
+    # Check if cache exists and is less than 7 days old
+    if test -f $cache_file
+        set -l cache_age (math (date +%s) - (stat -f %m $cache_file 2>/dev/null || stat -c %Y $cache_file 2>/dev/null || echo 0))
+        if test $cache_age -lt 604800  # 7 days in seconds
+            # Use cached result
+            if test (cat $cache_file) = "1"
+                return 0
+            else
+                return 1
+            end
+        end
+    end
+    
+    # Cache miss or expired, check and update cache
+    if __check_nerd_fonts_uncached
+        echo "1" > $cache_file
+        return 0
+    else
+        echo "0" > $cache_file
+        return 1
     end
 end
 
@@ -45,3 +79,15 @@ end
 
 # Export the function for use in prompts and scripts
 funcsave nf_icon >/dev/null 2>&1
+
+# Function to refresh the Nerd Fonts cache
+function refresh-nerd-fonts-cache --description "Force refresh the Nerd Fonts detection cache"
+    set -l cache_file "$HOME/.cache/fish/nerd-fonts-detected"
+    rm -f $cache_file
+    echo "Refreshing Nerd Fonts cache..."
+    if __has_nerd_fonts
+        echo "Nerd Fonts detected and cached."
+    else
+        echo "No Nerd Fonts detected."
+    end
+end

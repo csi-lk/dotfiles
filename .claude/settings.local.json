@@ -22,7 +22,9 @@
       "Bash(brew untap:*)",
       "Bash(emacs:*)",
       "Bash(timeout:*)",
-      "Bash(fish:*)"
+      "Bash(fish:*)",
+      "Bash(git add:*)",
+      "Bash(git reset:*)"
     ],
     "deny": []
   }
