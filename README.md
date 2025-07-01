@@ -181,6 +181,7 @@ chmod +x ~/.local/share/chezmoi/.chezmoiscripts/*
 | `Caps Lock + S` | Open/focus Slack |
 | `Caps Lock + V` | Open/focus Visual Studio Code |
 | `Caps Lock + O` | Open/focus Obsidian |
+| `Caps Lock + Space` | Open/focus iTerm |
 | `Caps Lock + M` | Firefox → Tab 1 |
 | `Caps Lock + T` | Firefox → Tab 2 |
 
