@@ -35,7 +35,9 @@ handle_brew_error() {
 {{ $taps := list 
      "FelixKratz/formulae" -}}
 {{ $casks := list 
-     "karabiner-elements" -}}
+     "karabiner-elements"
+     "rectangle"
+     "iterm2" -}}
 
 {{ if eq .chezmoi.os "darwin" -}}
 echo "Setting up macOS..."

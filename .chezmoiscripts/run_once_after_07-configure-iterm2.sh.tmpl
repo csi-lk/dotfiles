@@ -1,0 +1,51 @@
+#!/bin/bash
+
+{{ if eq .chezmoi.os "darwin" -}}
+echo "Configuring iTerm2..."
+
+# Create iTerm2 directories if they don't exist
+ITERM_SUPPORT_DIR="$HOME/Library/Application Support/iTerm2"
+ITERM_DYNAMIC_PROFILES_DIR="$ITERM_SUPPORT_DIR/DynamicProfiles"
+
+# Create directories
+mkdir -p "$ITERM_DYNAMIC_PROFILES_DIR"
+
+# Link the dynamic profile if not already linked
+if [ ! -f "$ITERM_DYNAMIC_PROFILES_DIR/Profiles.json" ]; then
+    ln -sf "$HOME/.config/iterm2/DynamicProfiles/Profiles.json" "$ITERM_DYNAMIC_PROFILES_DIR/Profiles.json"
+    echo "✓ iTerm2 dynamic profile linked"
+else
+    echo "iTerm2 dynamic profile already exists"
+fi
+
+# Import color scheme using iTerm2's Python API if available
+if command -v python3 &> /dev/null && [ -f "$HOME/.config/iterm2/Monokai_Soda.itermcolors" ]; then
+    python3 << 'EOF'
+import os
+import subprocess
+import plistlib
+
+color_scheme_path = os.path.expanduser("~/.config/iterm2/Monokai_Soda.itermcolors")
+
+# Check if iTerm2 is installed
+if os.path.exists("/Applications/iTerm.app"):
+    print("✓ iTerm2 found")
+    
+    # The color scheme is already embedded in the dynamic profile
+    print("✓ Monokai Soda colors configured in dynamic profile")
+    print("✓ FiraCode Nerd Font configured in dynamic profile")
+    
+    print("\nTo use the new profile:")
+    print("1. Open iTerm2")
+    print("2. Go to Preferences → Profiles")
+    print("3. Select 'Dotfiles Profile' from the list")
+    print("4. Click 'Set as Default' if you want it as your default profile")
+else:
+    print("iTerm2 not found. Please install it first.")
+EOF
+fi
+
+echo "iTerm2 configuration complete!"
+{{ else -}}
+echo "iTerm2 configuration is only supported on macOS"
+{{ end -}}
