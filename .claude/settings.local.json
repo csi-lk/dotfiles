@@ -25,7 +25,10 @@
       "Bash(fish:*)",
       "Bash(git add:*)",
       "Bash(git reset:*)",
-      "Bash(brew tap:*)"
+      "Bash(brew tap:*)",
+      "Bash(brew list:*)",
+      "Bash(brew install:*)",
+      "Bash(time fish:*)"
     ],
     "deny": []
   }

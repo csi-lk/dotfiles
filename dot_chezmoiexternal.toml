@@ -1,0 +1,18 @@
+# External files that should not be managed by chezmoi
+# These files are created locally and should not be overwritten
+
+[".config/fish/conf.d/00-performance-overrides.fish"]
+type = "file"
+exclude = true
+
+[".config/fish/conf.d/98-chezmoi-proxy.fish"]
+type = "file"
+exclude = true
+
+[".config/fish/conf.d/99-local-proxy.fish"]
+type = "file"
+exclude = true
+
+[".config/fish/conf.d/97-homebrew-no-proxy.fish"]
+type = "file"
+exclude = true

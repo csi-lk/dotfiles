@@ -10,9 +10,22 @@ set -gx VISUAL hx
 # Homebrew settings
 set -gx HOMEBREW_NO_AUTO_UPDATE 1
 
-# Initialize starship prompt
+# Initialize starship prompt (lazy load to speed up startup)
 if type -q starship
-    starship init fish | source
+    # Use faster initialization method
+    set -gx STARSHIP_CONFIG "$HOME/.config/starship.toml"
+    function starship_prompt
+        starship prompt --status=$status --cmd-duration=$CMD_DURATION --jobs=(jobs -p | wc -l)
+    end
+    
+    # Set up the prompt functions
+    function fish_prompt
+        starship_prompt
+    end
+    
+    function fish_right_prompt
+        # Empty right prompt (starship handles everything)
+    end
 end
 
 # Initialize zoxide
@@ -66,15 +79,12 @@ switch (uname)
     case Darwin
         # macOS specific settings
         
-        # Homebrew paths (Apple Silicon and Intel)
+        # Homebrew paths are now handled by 00-brew-cache.fish for faster startup
+        # Just add the paths in case the cache hasn't run yet
         if test -d /opt/homebrew
-            # Apple Silicon
-            eval (/opt/homebrew/bin/brew shellenv)
             fish_add_path /opt/homebrew/bin
             fish_add_path /opt/homebrew/sbin
         else if test -d /usr/local/Homebrew
-            # Intel Mac
-            eval (/usr/local/bin/brew shellenv)
             fish_add_path /usr/local/bin
             fish_add_path /usr/local/sbin
         end
