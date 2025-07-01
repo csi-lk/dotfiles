@@ -21,7 +21,8 @@
       "Bash(brew uninstall:*)",
       "Bash(brew untap:*)",
       "Bash(emacs:*)",
-      "Bash(timeout:*)"
+      "Bash(timeout:*)",
+      "Bash(fish:*)"
     ],
     "deny": []
   }
