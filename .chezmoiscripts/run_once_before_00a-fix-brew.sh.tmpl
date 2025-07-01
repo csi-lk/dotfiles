@@ -23,12 +23,29 @@ fix_brew_issues() {
     # Clean up any potential issues
     brew cleanup --prune=all || true
     
+    # Remove problematic taps before update
+    for tap in $(brew tap); do
+        case "$tap" in
+            "homebrew/cask-fonts"|"homebrew/cask-versions"|"homebrew/php")
+                echo "Removing deprecated tap: $tap"
+                brew untap "$tap" 2>/dev/null || true
+                ;;
+        esac
+    done
+    
     # Update Homebrew itself
     brew update || brew update-reset
-    
-    # Fix any potential tap issues
-    brew tap --repair || true
 }
+
+# Always clean up deprecated taps first
+for tap in $(brew tap); do
+    case "$tap" in
+        "homebrew/cask-fonts"|"homebrew/cask-versions"|"homebrew/php")
+            echo "Removing deprecated tap: $tap"
+            brew untap "$tap" 2>/dev/null || true
+            ;;
+    esac
+done
 
 # Check if brew is working properly
 if ! brew config >/dev/null 2>&1; then

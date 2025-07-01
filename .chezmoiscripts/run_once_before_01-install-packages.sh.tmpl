@@ -2,6 +2,14 @@
 
 set -eufo pipefail
 
+# Handle brew update errors gracefully
+handle_brew_error() {
+    if [[ $? -ne 0 ]]; then
+        echo "Brew command failed, but continuing..."
+        return 0
+    fi
+}
+
 {{ $packages := list
      "fish"
      "helix"
@@ -22,8 +30,7 @@ set -eufo pipefail
      "sketchybar"
      "jq"
      "yabai"
-     "warpd"
-     "borders" -}}
+     "warpd" -}}
 
 {{ $taps := list 
      "FelixKratz/formulae" -}}
@@ -36,6 +43,11 @@ echo "Setting up macOS..."
 
 # Skip brew update by default (it's slow)
 export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_INSTALL_FROM_API=1
+
+# Clean up deprecated taps before any brew operations
+echo "Cleaning up deprecated taps..."
+brew untap homebrew/cask-fonts 2>/dev/null || true
 
 # Install Homebrew if not installed
 if ! command -v brew >/dev/null 2>&1; then
@@ -61,6 +73,18 @@ fi
 {{ range $taps -}}
 brew tap {{ . | quote }} 2>/dev/null || true
 {{ end -}}
+
+# Temporarily use wrapper to bypass deprecated tap errors
+if [ -f "$HOME/brew-wrapper.sh" ]; then
+    brew() {
+        "$HOME/brew-wrapper.sh" "$@"
+    }
+else
+    # Force disable auto-update for all brew commands
+    brew() {
+        HOMEBREW_NO_AUTO_UPDATE=1 command brew "$@" 2>&1 | grep -v "homebrew/cask-fonts was deprecated" || true
+    }
+fi
 
 # Install packages individually to handle failures better
 echo "Installing packages..."

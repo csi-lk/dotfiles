@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -eufo pipefail
+
+{{ if eq .chezmoi.os "darwin" -}}
+echo "Cleaning up deprecated Homebrew taps..."
+
+# Skip auto-update
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+# Remove deprecated taps if they exist
+if brew tap | grep -q "homebrew/cask-fonts"; then
+    echo "Removing deprecated homebrew/cask-fonts tap..."
+    brew untap homebrew/cask-fonts || true
+fi
+
+# Remove any other known deprecated taps
+for tap in "homebrew/cask-versions" "homebrew/php"; do
+    if brew tap | grep -q "$tap"; then
+        echo "Removing deprecated $tap tap..."
+        brew untap "$tap" || true
+    fi
+done
+
+echo "Deprecated taps cleaned up"
+{{ end -}}
