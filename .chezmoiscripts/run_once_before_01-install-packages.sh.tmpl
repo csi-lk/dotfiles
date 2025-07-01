@@ -27,7 +27,8 @@ set -eufo pipefail
 
 {{ $taps := list 
      "FelixKratz/formulae" -}}
-{{ $casks := list -}}
+{{ $casks := list 
+     "iterm2" -}}
 
 {{ if eq .chezmoi.os "darwin" -}}
 echo "Setting up macOS..."
