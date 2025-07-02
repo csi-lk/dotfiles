@@ -30,7 +30,16 @@
       "Bash(brew install:*)",
       "Bash(time fish:*)",
       "Bash(osascript:*)",
-      "Bash(karabiner_cli:*)"
+      "Bash(karabiner_cli:*)",
+      "Bash(pkill:*)",
+      "Bash(true)",
+      "Bash(brew services:*)",
+      "Bash(pgrep:*)",
+      "Bash(sketchybar:*)",
+      "Bash(defaults write:*)",
+      "Bash(killall:*)",
+      "Bash(defaults read:*)",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ],
     "deny": []
   }
