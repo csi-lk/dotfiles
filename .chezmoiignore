@@ -5,3 +5,8 @@ install.sh
 .gitignore
 .github
 .chezmoiscripts/**/*.md
+
+# Local overrides (work-specific)
+.config/fish/local.fish
+.config/fish/conf.d/97-homebrew-no-proxy.fish
+.config/fish/conf.d/99-local-proxy.fish
