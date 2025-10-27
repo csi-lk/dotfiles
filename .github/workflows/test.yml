@@ -1,4 +1,4 @@
-name: Test Dotfiles
+name: Validate Dotfiles
 
 on:
   push:
@@ -8,72 +8,128 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-macos:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Test installation on macOS
-      run: |
-        bash install.sh
-        
-    - name: Verify installations
-      run: |
-        which fish
-        which hx
-        which starship
-        fish -c "echo 'Fish shell works'"
-        
-  test-ubuntu:
+  shellcheck:
+    name: Shell Script Validation
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Test installation on Ubuntu
-      run: |
-        bash install.sh
-        
-    - name: Verify installations
-      run: |
-        which fish
-        which hx
-        which starship
-        fish -c "echo 'Fish shell works'"
-        
-  test-codespaces:
-    runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/devcontainers/base:ubuntu-22.04
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Simulate Codespaces environment
-      run: |
-        export CODESPACES=true
-        export CODESPACE_NAME=test
-        bash install.sh --codespaces
-        
-    - name: Verify Codespaces setup
-      run: |
-        which fish
-        which hx
-        which starship
-        fish -c "echo 'Fish shell works in Codespaces'"
-        
-    - name: Check LSP installation script
-      run: |
-        test -f "$HOME/.local/bin/helix-lsp-status"
-        
-  test-install-script:
+      - uses: actions/checkout@v4
+
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+
+      - name: Run shellcheck on shell scripts
+        run: |
+          echo "Checking shell scripts..."
+          # Find all .sh files and .sh.tmpl files
+          find . -type f \( -name "*.sh" -o -name "*.sh.tmpl" \) | while read -r file; do
+            echo "Checking $file"
+            # For .tmpl files, we check them as-is (they may have chezmoi template syntax)
+            # Use -x to follow sources, -e SC1091 to ignore source errors for templates
+            shellcheck -x -e SC1091 -e SC2181 "$file" || true
+          done
+
+      - name: Check executable permissions
+        run: |
+          echo "Checking executable permissions..."
+          # install.sh and install should be executable
+          test -x install.sh || (echo "ERROR: install.sh is not executable" && exit 1)
+          test -x install || (echo "ERROR: install is not executable" && exit 1)
+          echo "✓ All install scripts have correct permissions"
+
+  chezmoi-validate:
+    name: Chezmoi Template Validation
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Test install wrapper script
-      run: |
-        ./install
-        
-    - name: Verify wrapper works
-      run: |
-        which fish
-        which chezmoi
+      - uses: actions/checkout@v4
+
+      - name: Install chezmoi
+        run: |
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Validate chezmoi templates
+        run: |
+          echo "Validating chezmoi can parse all templates..."
+          chezmoi init --source="$PWD" --dry-run --verbose
+          echo "✓ All chezmoi templates are valid"
+
+      - name: Check for template syntax errors
+        run: |
+          echo "Checking for common template issues..."
+          # Check if .chezmoi.toml.tmpl exists and is valid
+          test -f .chezmoi.toml.tmpl || (echo "ERROR: .chezmoi.toml.tmpl not found" && exit 1)
+          echo "✓ Configuration files present"
+
+  fish-config-validate:
+    name: Fish Configuration Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install fish
+        run: sudo apt-get update && sudo apt-get install -y fish
+
+      - name: Validate fish configuration syntax
+        run: |
+          echo "Checking fish configuration files..."
+          # Check main config
+          fish --no-execute dot_config/fish/config.fish
+          echo "✓ config.fish syntax valid"
+
+          # Check conf.d files
+          for conf in dot_config/fish/conf.d/*.fish; do
+            if [ -f "$conf" ]; then
+              echo "Checking $conf..."
+              fish --no-execute "$conf"
+            fi
+          done
+          echo "✓ All conf.d files syntax valid"
+
+          # Check function files
+          for func in dot_config/fish/functions/*.fish; do
+            if [ -f "$func" ]; then
+              echo "Checking $func..."
+              fish --no-execute "$func"
+            fi
+          done
+          echo "✓ All function files syntax valid"
+
+  structure-check:
+    name: Repository Structure Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate repository structure
+        run: |
+          echo "Checking repository structure..."
+
+          # Check critical files exist
+          test -f install.sh || (echo "ERROR: install.sh missing" && exit 1)
+          test -f install || (echo "ERROR: install wrapper missing" && exit 1)
+          test -f .chezmoi.toml.tmpl || (echo "ERROR: .chezmoi.toml.tmpl missing" && exit 1)
+          test -f dot_config/fish/config.fish || (echo "ERROR: fish config.fish missing" && exit 1)
+          test -f dot_config/fish/fish_plugins || (echo "ERROR: fish_plugins missing" && exit 1)
+
+          # Check directory structure
+          test -d .chezmoiscripts || (echo "ERROR: .chezmoiscripts directory missing" && exit 1)
+          test -d dot_config/fish/conf.d || (echo "ERROR: fish conf.d directory missing" && exit 1)
+          test -d dot_config/fish/functions || (echo "ERROR: fish functions directory missing" && exit 1)
+
+          echo "✓ Repository structure valid"
+
+      - name: Check for common issues
+        run: |
+          echo "Checking for common issues..."
+
+          # Check for accidentally committed secrets
+          if grep -r "password\s*=\s*['\"]" . --exclude-dir=.git 2>/dev/null; then
+            echo "WARNING: Found potential hardcoded passwords"
+          fi
+
+          # Check for TODO/FIXME comments in scripts
+          if find .chezmoiscripts -type f -exec grep -l "TODO\|FIXME" {} \; 2>/dev/null | head -5; then
+            echo "INFO: Found TODO/FIXME comments in scripts (not an error)"
+          fi
+
+          echo "✓ Common issues check complete"

@@ -163,9 +163,6 @@ if type -q fzf
     end
 end
 
-# nvm.fish configuration
-set -gx nvm_default_version 20.19.4
-
 # GitHub Codespaces specific
 if set -q CODESPACES
     # Codespaces specific settings

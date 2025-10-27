@@ -25,15 +25,27 @@ fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/fun
 # Install fish plugins
 fish -c "fisher update" || true
 
-# Install Node Version Manager (nvm)
+# Install Node Version Manager (nvm) and default version
 echo "Setting up Node.js environment..."
 if ! command -v node >/dev/null 2>&1; then
-    # nvm.fish will handle Node.js installation
-    fish -c "nvm install lts" || true
-    fish -c "nvm use lts" || true
-    
-    # Install common global npm packages
-    fish -c "npm install -g pnpm yarn npm-check-updates" || true
+    echo "Installing default Node.js version via nvm.fish..."
+    # Use the nvm-setup function which respects nvm_default_version
+    fish -c "nvm-setup" || {
+        echo "Warning: nvm-setup failed, trying manual installation..."
+        # Fallback: manually install the default version
+        fish -c "nvm install 20.19.4 && nvm use 20.19.4" || true
+    }
+
+    # Verify Node.js is available
+    if fish -c "type -q node"; then
+        echo "Node.js installed successfully"
+        # Install common global npm packages
+        fish -c "npm install -g pnpm yarn npm-check-updates" || true
+    else
+        echo "Warning: Node.js installation may have failed"
+    fi
+else
+    echo "Node.js already installed: $(node --version)"
 fi
 
 echo "Fish shell configuration complete!"
