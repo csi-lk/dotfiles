@@ -1,0 +1,63 @@
+#!/bin/bash
+
+set -eufo pipefail
+
+echo "Installing JavaScript package managers..."
+
+# Note: pnpm is already installed via npm in the fish configuration script
+# This script focuses on bun, which is a standalone runtime
+
+{{ if eq .chezmoi.os "darwin" -}}
+echo "Installing bun via Homebrew..."
+
+# Tap the bun repository
+brew tap oven-sh/bun 2>/dev/null || true
+
+# Install bun
+if ! command -v bun >/dev/null 2>&1; then
+    echo "Installing bun..."
+    brew install oven-sh/bun/bun || echo "Warning: Failed to install bun, continuing..."
+else
+    echo "bun already installed: $(bun --version)"
+fi
+
+{{ else if eq .chezmoi.os "linux" -}}
+echo "Installing bun via official installer..."
+
+# Install bun using the official installation script
+if ! command -v bun >/dev/null 2>&1; then
+    echo "Installing bun..."
+    curl -fsSL https://bun.sh/install | bash
+
+    # Add bun to PATH for current session
+    export BUN_INSTALL="$HOME/.bun"
+    export PATH="$BUN_INSTALL/bin:$PATH"
+
+    echo "bun installed successfully"
+else
+    echo "bun already installed: $(bun --version)"
+fi
+
+{{ end -}}
+
+# Verify installations
+echo ""
+echo "Package managers status:"
+echo "======================="
+
+# Check pnpm
+if command -v pnpm >/dev/null 2>&1; then
+    echo "✓ pnpm $(pnpm --version)"
+else
+    echo "✗ pnpm (not found - will be installed when Node.js is configured)"
+fi
+
+# Check bun
+if command -v bun >/dev/null 2>&1; then
+    echo "✓ bun $(bun --version)"
+else
+    echo "✗ bun (not found)"
+fi
+
+echo ""
+echo "Package managers installation complete!"

@@ -213,6 +213,42 @@ The repository automatically configures Codespaces through `.devcontainer/devcon
 - **Linux**: Uses apt (Debian/Ubuntu), with fallbacks to direct downloads for tools not in repos
 - **Cross-platform tools**: Installed via curl scripts (starship, zoxide) or cargo when needed
 
+## JavaScript Package Managers
+
+The dotfiles automatically install modern JavaScript package managers for Node.js development:
+
+### Installed Package Managers
+- **pnpm** - Fast, disk space efficient package manager
+- **bun** - All-in-one JavaScript runtime & toolkit (ultra-fast package manager, bundler, test runner)
+
+### Installation
+- **pnpm**: Installed globally via npm in the fish configuration script
+- **bun**:
+  - macOS: Installed via Homebrew (`brew install oven-sh/bun/bun`)
+  - Linux: Installed via official curl script
+- Installation script: `run_once_after_07-install-package-managers.sh.tmpl`
+
+### Usage Examples
+```bash
+# pnpm - Fast package manager
+pnpm install
+pnpm add react
+pnpm run dev
+
+# bun - All-in-one toolkit
+bun install           # Install dependencies (faster than npm)
+bun add react         # Add packages
+bun run dev           # Run scripts
+bun test              # Run tests
+bun build ./index.ts  # Bundle for production
+```
+
+### Why These Package Managers?
+- **pnpm**: Uses a content-addressable store, saving disk space and improving install speed
+- **bun**: Not just a package manager - also a JavaScript runtime, bundler, and test runner with native performance
+
+Note: npm comes with Node.js by default and is also available.
+
 ## Claude Code Support
 
 Claude Code and claude-squad are automatically installed and configured with convenient aliases:
