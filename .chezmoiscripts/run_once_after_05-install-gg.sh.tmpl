@@ -15,7 +15,7 @@ else
     mkdir -p "$HOME/.local/bin"
 
     # Install gg using the official installation script from GitHub
-    if curl -fsSL https://github.com/csi-lk/gg/raw/main/install.sh | bash; then
+    if curl -fsSL https://github.com/csi-lk/gg/raw/master/install.sh | bash; then
         echo "✓ gg installed successfully!"
 
         # Ensure ~/.local/bin is in PATH for current session
@@ -31,7 +31,7 @@ else
         fi
     else
         echo "✗ Failed to install gg"
-        echo "  You can try manually: curl -fsSL https://github.com/csi-lk/gg/raw/main/install.sh | bash"
+        echo "  You can try manually: curl -fsSL https://github.com/csi-lk/gg/raw/master/install.sh | bash"
     fi
 fi
 

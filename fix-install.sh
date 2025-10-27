@@ -37,7 +37,7 @@ mkdir -p "$HOME/.local/bin"
 if command -v gg >/dev/null 2>&1; then
     echo "✓ gg is already installed: $(gg --version 2>/dev/null || echo 'installed')"
 else
-    curl -fsSL https://github.com/csi-lk/gg/raw/main/install.sh | bash
+    curl -fsSL https://github.com/csi-lk/gg/raw/master/install.sh | bash
     export PATH="$HOME/.local/bin:$PATH"
     if command -v gg >/dev/null 2>&1; then
         echo "✓ gg installed: $(which gg)"
