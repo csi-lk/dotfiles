@@ -44,7 +44,7 @@ if ! command -v node >/dev/null 2>&1; then
     if fish -c "type -q node"; then
         echo "Node.js installed successfully"
         # Install common global npm packages
-        fish -c "npm install -g pnpm yarn npm-check-updates" || true
+        fish -c "npm install -g pnpm npm-check-updates" || true
     else
         echo "Warning: Node.js installation may have failed"
     fi
