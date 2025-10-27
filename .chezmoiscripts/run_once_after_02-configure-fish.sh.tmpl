@@ -22,7 +22,11 @@ fi
 echo "Installing Fisher and plugins..."
 fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher" || true
 
-# Install fish plugins
+# Install fish plugins explicitly from fish_plugins file
+echo "Installing nvm.fish and other plugins..."
+fish -c "fisher install jorgebucaran/nvm.fish PatrickF1/fzf.fish" || true
+
+# Run fisher update to sync with fish_plugins file
 fish -c "fisher update" || true
 
 # Install Node Version Manager (nvm) and default version
