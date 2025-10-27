@@ -222,7 +222,7 @@ The dotfiles automatically install modern JavaScript package managers for Node.j
 - **bun** - All-in-one JavaScript runtime & toolkit (ultra-fast package manager, bundler, test runner)
 
 ### Installation
-- **pnpm**: Installed globally via npm in the fish configuration script
+- **pnpm**: Installed globally via npm in the package managers installation script
 - **bun**:
   - macOS: Installed via Homebrew (`brew install oven-sh/bun/bun`)
   - Linux: Installed via official curl script
