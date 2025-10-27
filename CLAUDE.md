@@ -52,7 +52,7 @@ The repository uses chezmoi templating to handle differences between macOS and L
 3. Add OS-specific installation logic if needed
 
 ### Special Package Installations
-- **gg (git aliases)**: Installed via curl script in `run_once_after_05-install-gg.sh.tmpl`
+- **gg (git aliases)**: Installed via curl script in `run_once_after_05-install-gg.sh.tmpl` with fish completions in `dot_config/fish/completions/gg.fish`
 - **Node.js**: Installed via nvm.fish in the fish configuration script
 - **LSP servers**: Installed in `run_once_after_03-install-lsp-servers.sh.tmpl`
 
@@ -255,6 +255,70 @@ csl
 # claude-squad - Run squad on a task
 csr "implement user authentication"
 ```
+
+## Git Goodies (gg)
+
+gg is a fast git alias utility that provides convenient shortcuts for common git operations.
+
+### Installation
+- Installed via curl script from https://github.com/csi-lk/gg
+- Installation script: `run_once_after_05-install-gg.sh.tmpl`
+- Fish shell completions: `dot_config/fish/completions/gg.fish`
+
+### Fish Integration
+The dotfiles include comprehensive fish shell completions for gg, providing:
+- Tab completion for all gg commands and aliases
+- Intelligent branch name suggestions for checkout and delete operations
+- Tag name suggestions for tag operations
+- Command descriptions in the completion menu
+
+### Common Commands
+**Basic operations:**
+- `gg s` - Status
+- `gg a` - Add all changes
+- `gg c` - Conventional commit (interactive)
+- `gg p` - Push
+- `gg pl` - Pull
+
+**Branch management:**
+- `gg b <name>` - Create/checkout branch
+- `gg cm` - Checkout main/master
+- `gg bd <name>` - Delete branch
+- `gg clean` - Remove merged branches
+
+**History:**
+- `gg l` - View commit log
+- `gg lc` - Show latest commit
+- `gg r <n>` - Interactive rebase last n commits
+
+**Advanced:**
+- `gg z a c p` - Chain commands (add, commit, push)
+- `gg cf` - Create fixup commit
+- `gg pr` - Open pull request
+- `gg o` - Open repository in browser
+
+### Usage Examples
+```bash
+# Quick add, commit, push workflow
+gg z a c p
+
+# Create a new feature branch
+gg b feature/new-feature
+
+# View recent commits
+gg l
+
+# Amend last commit without editing message
+gg can
+
+# Interactive rebase last 3 commits
+gg r 3
+
+# Return to main branch and pull latest
+gg cm && gg pl
+```
+
+For a complete list of commands, run `gg help` or `gg -h`.
 
 ## Nerd Fonts Setup
 
