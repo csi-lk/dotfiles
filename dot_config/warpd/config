@@ -1,11 +1,11 @@
 # Warpd Configuration
 # Optimized for keyboard-driven mouse control
 
-# Activation keys
-activation_key: A-M-c     # Command+Alt+C to activate normal mode
-grid_key: A-M-g          # Command+Alt+G for grid mode
-hint_key: A-M-x          # Command+Alt+X for hint mode
-oneshot_key: A-M-o       # Command+Alt+O for oneshot mode
+# Activation keys - using Command+Option combinations
+activation_key: M-A-w
+grid_key: M-A-g
+hint_key: M-A-x
+oneshot_key: M-A-q
 
 # Movement keys (vim-style)
 up: k
@@ -14,40 +14,39 @@ left: h
 right: l
 
 # Speed control
-accelerator: a           # Hold 'a' to move faster
-decelerator: d          # Hold 'd' to move slower
+accelerator: a
+decelerator: d
 
 # Mouse buttons
-click: m                # Left click
-rclick: comma           # Right click (,)
-mclick: period          # Middle click (.)
+click: m
+rclick: comma
+mclick: period
 
 # Drag mode
-drag: v                 # Toggle drag mode
+drag: v
 
 # Movement speed
-speed: 220              # Base movement speed
-acceleration: 4         # Acceleration multiplier
-max_speed: 1000        # Maximum speed
+speed: 220
+acceleration: 4
+max_speed: 1000
 
 # Grid mode settings
-grid_size: 2            # 2x2 grid subdivision
-grid_activation_key: space
+grid_size: 2
 
 # Hint mode settings
-hint_bgcolor: #1e1e2e   # Background color for hints
-hint_fgcolor: #f38ba8   # Foreground color for hints
-hint_border_radius: 2   # Border radius for hint boxes
+hint_bgcolor: #1e1e2e
+hint_fgcolor: #f38ba8
+hint_border_radius: 2
 
 # Exit key
-exit: escape            # Escape to exit any mode
+exit: esc
 
 # Screen edges (prevent cursor from going off screen)
 scroll_speed: 20
-buttons: M L R          # Middle, Left, Right click options
+buttons: M L R
 
 # Copy mode settings
-copy_key: y             # Copy in hint mode
+copy_key: y
 
 # History (for oneshot mode)
-history_size: 100       # Remember last 100 positions
+history_size: 100

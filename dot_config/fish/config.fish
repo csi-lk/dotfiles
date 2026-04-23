@@ -1,5 +1,8 @@
 # Fish configuration
 
+# Add user bin to PATH
+fish_add_path ~/bin
+
 # Disable greeting
 set -g fish_greeting
 
