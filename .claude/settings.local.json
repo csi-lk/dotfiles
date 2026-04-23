@@ -39,7 +39,9 @@
       "Bash(defaults write:*)",
       "Bash(killall:*)",
       "Bash(defaults read:*)",
-      "WebFetch(domain:raw.githubusercontent.com)"
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(git commit -m \"feat: add flux-markdown cask to dotfiles\n\n- Add xykong/tap to Homebrew taps\n- Add flux-markdown as installable cask\n- Provides Markdown editor with live preview functionality\")",
+      "Bash(git push)"
     ],
     "deny": []
   }
