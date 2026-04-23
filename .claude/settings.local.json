@@ -42,7 +42,8 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(git commit -m \"feat: add flux-markdown cask to dotfiles\n\n- Add xykong/tap to Homebrew taps\n- Add flux-markdown as installable cask\n- Provides Markdown editor with live preview functionality\")",
       "Bash(git push)",
-      "Bash(git commit -m \"feat: add Hyperkey cask to dotfiles\n\n- Add Hyperkey for advanced keyboard shortcut management\n- Complements existing Karabiner Elements configuration\n- Enables hyper key functionality for enhanced productivity\")"
+      "Bash(git commit -m \"feat: add Hyperkey cask to dotfiles\n\n- Add Hyperkey for advanced keyboard shortcut management\n- Complements existing Karabiner Elements configuration\n- Enables hyper key functionality for enhanced productivity\")",
+      "Bash(git commit -m \"feat: setup Hyper key and warpd configuration\n\n- Remove hyperkey from casks \\(replaced by Karabiner\\)\n- Add Hyper+Z → Zen Browser shortcut\n- Add Hyper+T → Microsoft Teams shortcut  \n- Configure Caps Lock as Hyper key \\(⌘⌥⌃⇧\\)\n- Add comprehensive warpd config for keyboard mouse control\n- Maintain existing Caps Lock launcher functionality\")"
     ],
     "deny": []
   }

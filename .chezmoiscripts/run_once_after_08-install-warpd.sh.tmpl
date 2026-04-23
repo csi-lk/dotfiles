@@ -1,0 +1,66 @@
+#!/bin/bash
+
+set -eufo pipefail
+
+{{ if eq .chezmoi.os "darwin" -}}
+echo "Installing warpd for keyboard mouse control..."
+
+# Check if warpd is already installed
+if command -v warpd >/dev/null 2>&1; then
+    echo "warpd is already installed"
+    exit 0
+fi
+
+# Try to download pre-built binary first
+WARPD_VERSION="v1.3.5"
+WARPD_URL="https://github.com/rvaiya/warpd/releases/download/${WARPD_VERSION}/warpd-darwin-amd64"
+
+echo "Downloading warpd ${WARPD_VERSION}..."
+if curl -L "$WARPD_URL" -o /tmp/warpd 2>/dev/null; then
+    chmod +x /tmp/warpd
+    sudo mv /tmp/warpd /usr/local/bin/warpd
+    echo "warpd installed successfully"
+else
+    echo "Pre-built binary not available, building from source..."
+
+    # Install dependencies if needed
+    if ! command -v make >/dev/null 2>&1; then
+        echo "Installing Xcode command line tools (required for building)..."
+        xcode-select --install || true
+        echo "Please run this script again after installing Xcode command line tools"
+        exit 1
+    fi
+
+    # Clone and build from source
+    TEMP_DIR=$(mktemp -d)
+    cd "$TEMP_DIR"
+
+    echo "Cloning warpd repository..."
+    git clone https://github.com/rvaiya/warpd.git
+    cd warpd
+
+    echo "Building warpd..."
+    make
+
+    echo "Installing warpd..."
+    sudo make install
+
+    # Cleanup
+    cd /
+    rm -rf "$TEMP_DIR"
+
+    echo "warpd installed successfully from source"
+fi
+
+# Verify installation
+if command -v warpd >/dev/null 2>&1; then
+    echo "✓ warpd installation verified"
+    warpd --version || echo "warpd installed but version check failed"
+else
+    echo "✗ warpd installation failed"
+    exit 1
+fi
+
+{{ else -}}
+echo "warpd installation is only supported on macOS"
+{{ end -}}
