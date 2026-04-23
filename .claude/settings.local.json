@@ -41,7 +41,8 @@
       "Bash(defaults read:*)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(git commit -m \"feat: add flux-markdown cask to dotfiles\n\n- Add xykong/tap to Homebrew taps\n- Add flux-markdown as installable cask\n- Provides Markdown editor with live preview functionality\")",
-      "Bash(git push)"
+      "Bash(git push)",
+      "Bash(git commit -m \"feat: add Hyperkey cask to dotfiles\n\n- Add Hyperkey for advanced keyboard shortcut management\n- Complements existing Karabiner Elements configuration\n- Enables hyper key functionality for enhanced productivity\")"
     ],
     "deny": []
   }
