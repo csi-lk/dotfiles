@@ -32,12 +32,14 @@ handle_brew_error() {
      "yabai"
      "warpd" -}}
 
-{{ $taps := list 
-     "FelixKratz/formulae" -}}
-{{ $casks := list 
+{{ $taps := list
+     "FelixKratz/formulae"
+     "xykong/tap" -}}
+{{ $casks := list
      "karabiner-elements"
      "rectangle"
-     "iterm2" -}}
+     "iterm2"
+     "xykong/tap/flux-markdown" -}}
 
 {{ if eq .chezmoi.os "darwin" -}}
 echo "Setting up macOS..."

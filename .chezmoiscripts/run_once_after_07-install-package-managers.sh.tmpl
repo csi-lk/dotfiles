@@ -4,6 +4,29 @@ set -eufo pipefail
 
 echo "Installing JavaScript package managers..."
 
+{{ if eq .chezmoi.os "darwin" -}}
+# macOS: install both pnpm and bun via Homebrew
+
+# Install pnpm
+if ! command -v pnpm >/dev/null 2>&1; then
+    echo "Installing pnpm via Homebrew..."
+    brew install pnpm || echo "Warning: Failed to install pnpm, continuing..."
+else
+    echo "pnpm already installed: $(pnpm --version)"
+fi
+
+# Install bun
+if ! command -v bun >/dev/null 2>&1; then
+    echo "Installing bun via Homebrew..."
+    brew tap oven-sh/bun 2>/dev/null || true
+    brew install oven-sh/bun/bun || echo "Warning: Failed to install bun, continuing..."
+else
+    echo "bun already installed: $(bun --version)"
+fi
+
+{{ else if eq .chezmoi.os "linux" -}}
+# Linux: install pnpm via npm, bun via official installer
+
 # Install pnpm if Node.js is available
 if command -v npm >/dev/null 2>&1; then
     if ! command -v pnpm >/dev/null 2>&1; then
@@ -16,24 +39,7 @@ else
     echo "Skipping pnpm installation - Node.js/npm not found"
 fi
 
-{{ if eq .chezmoi.os "darwin" -}}
-echo "Installing bun via Homebrew..."
-
-# Tap the bun repository
-brew tap oven-sh/bun 2>/dev/null || true
-
-# Install bun
-if ! command -v bun >/dev/null 2>&1; then
-    echo "Installing bun..."
-    brew install oven-sh/bun/bun || echo "Warning: Failed to install bun, continuing..."
-else
-    echo "bun already installed: $(bun --version)"
-fi
-
-{{ else if eq .chezmoi.os "linux" -}}
-echo "Installing bun via official installer..."
-
-# Install bun using the official installation script
+# Install bun via official installer
 if ! command -v bun >/dev/null 2>&1; then
     echo "Installing bun..."
     curl -fsSL https://bun.sh/install | bash
@@ -58,7 +64,7 @@ echo "======================="
 if command -v pnpm >/dev/null 2>&1; then
     echo "✓ pnpm $(pnpm --version)"
 else
-    echo "✗ pnpm (not found - will be installed when Node.js is configured)"
+    echo "✗ pnpm (not found)"
 fi
 
 # Check bun

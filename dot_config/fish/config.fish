@@ -150,6 +150,18 @@ if test -d $HOME/.pyenv/bin
     end
 end
 
+# pnpm
+if test -d $HOME/.local/share/pnpm
+    set -gx PNPM_HOME $HOME/.local/share/pnpm
+    fish_add_path $PNPM_HOME
+end
+
+# bun (Linux install location)
+if test -d $HOME/.bun/bin
+    set -gx BUN_INSTALL $HOME/.bun
+    fish_add_path $HOME/.bun/bin
+end
+
 # Set up fzf
 if type -q fzf
     # Set fzf default options
