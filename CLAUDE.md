@@ -21,6 +21,17 @@ This repository contains personal dotfiles managed with [chezmoi](https://www.ch
 └── install.sh              # Main installation script
 ```
 
+## Important: Two-Location Setup
+
+This repo (`~/dev/dotfiles`) is **not** the chezmoi source directory. Chezmoi reads from `~/.local/share/chezmoi/`. They are separate copies.
+
+When editing dotfiles:
+1. Edit files in `~/dev/dotfiles/` (the git repo)
+2. Copy to chezmoi source: `cp ~/dev/dotfiles/dot_config/foo ~/.local/share/chezmoi/dot_config/foo`
+3. Apply: `chezmoi apply --force ~/.config/foo`
+
+`chezmoi diff` shows no changes if you only edited `~/dev/dotfiles` — always copy to `~/.local/share/chezmoi/` first.
+
 ## Key Concepts
 
 ### Chezmoi Naming Convention
