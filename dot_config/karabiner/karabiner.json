@@ -131,6 +131,15 @@
                                 "type": "basic"
                             },
                             {
+                                "description": "Caps Lock + / → Super Key Cheat Sheet",
+                                "from": {
+                                    "key_code": "slash",
+                                    "modifiers": { "mandatory": ["caps_lock"] }
+                                },
+                                "to": [{ "shell_command": "bash ~/.config/karabiner/super-cheatsheet.sh" }],
+                                "type": "basic"
+                            },
+                            {
                                 "description": "Caps Lock + Space → Ghostty",
                                 "from": {
                                     "key_code": "spacebar",
