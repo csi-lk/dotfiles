@@ -61,6 +61,15 @@ else
     exit 1
 fi
 
+# Load the LaunchAgent so warpd runs as a background daemon (and on login).
+# warpd must be running to intercept its activation hotkeys.
+WARPD_PLIST="$HOME/Library/LaunchAgents/com.warpd.warpd.plist"
+if [ -f "$WARPD_PLIST" ]; then
+    echo "Loading warpd LaunchAgent..."
+    launchctl unload "$WARPD_PLIST" 2>/dev/null || true
+    launchctl load -w "$WARPD_PLIST" || echo "warpd LaunchAgent load failed (load manually after granting Accessibility permissions)"
+fi
+
 {{ else -}}
 echo "warpd installation is only supported on macOS"
 {{ end -}}

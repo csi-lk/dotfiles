@@ -43,7 +43,17 @@
       "Bash(git commit -m \"feat: add flux-markdown cask to dotfiles\n\n- Add xykong/tap to Homebrew taps\n- Add flux-markdown as installable cask\n- Provides Markdown editor with live preview functionality\")",
       "Bash(git push)",
       "Bash(git commit -m \"feat: add Hyperkey cask to dotfiles\n\n- Add Hyperkey for advanced keyboard shortcut management\n- Complements existing Karabiner Elements configuration\n- Enables hyper key functionality for enhanced productivity\")",
-      "Bash(git commit -m \"feat: setup Hyper key and warpd configuration\n\n- Remove hyperkey from casks \\(replaced by Karabiner\\)\n- Add Hyper+Z → Zen Browser shortcut\n- Add Hyper+T → Microsoft Teams shortcut  \n- Configure Caps Lock as Hyper key \\(⌘⌥⌃⇧\\)\n- Add comprehensive warpd config for keyboard mouse control\n- Maintain existing Caps Lock launcher functionality\")"
+      "Bash(git commit -m \"feat: setup Hyper key and warpd configuration\n\n- Remove hyperkey from casks \\(replaced by Karabiner\\)\n- Add Hyper+Z → Zen Browser shortcut\n- Add Hyper+T → Microsoft Teams shortcut  \n- Configure Caps Lock as Hyper key \\(⌘⌥⌃⇧\\)\n- Add comprehensive warpd config for keyboard mouse control\n- Maintain existing Caps Lock launcher functionality\")",
+      "Bash(open -a \"Karabiner-Elements\")",
+      "Bash(git commit -m \"security: remove chezmoi binary and prevent future binary commits\n\n- Remove bin/chezmoi binary that contains embedded Google API keys\n- Update .gitignore to exclude bin/ directory and all executable formats\n- Resolves GitHub secret scanning alert #31126\")",
+      "Bash(git push origin main)",
+      "Bash(launchctl start org.pqrs.karabiner.karabiner_grabber && launchctl start org.pqrs.karabiner.karabiner_observer)",
+      "Bash(git clone https://github.com/rvaiya/warpd.git /tmp/warpd-source)",
+      "Bash(cd /tmp/warpd-source && make && ls -la)",
+      "Bash(~/bin/warpd --version)",
+      "Bash(~/bin/warpd)",
+      "Bash(~/bin/warpd --list-options | grep -i grid)",
+      "Bash(~/bin/warpd --hint)"
     ],
     "deny": []
   }

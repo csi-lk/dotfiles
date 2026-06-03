@@ -29,25 +29,29 @@
                                 "type": "basic"
                             },
                             {
-                                "description": "Caps Lock + T → Microsoft Teams",
+                                "description": "Caps Lock + T → Microsoft Teams (Activity)",
                                 "from": {
                                     "key_code": "t",
                                     "modifiers": { "mandatory": ["caps_lock"] }
                                 },
                                 "to": [
                                     {
-                                        "shell_command": "open -a 'Microsoft Teams' && sleep 0.05 && osascript -e 'tell application \"Microsoft Teams\" to activate' -e 'tell application \"System Events\" to keystroke \"l\" using command down'"
+                                        "shell_command": "open -a 'Microsoft Teams' && sleep 0.02 && osascript -e 'tell application \"Microsoft Teams\" to activate' -e 'tell application \"System Events\" to keystroke \"1\" using command down'"
                                     }
                                 ],
                                 "type": "basic"
                             },
                             {
-                                "description": "Caps Lock + C → Calendar",
+                                "description": "Caps Lock + C → Microsoft Teams (Calendar)",
                                 "from": {
                                     "key_code": "c",
                                     "modifiers": { "mandatory": ["caps_lock"] }
                                 },
-                                "to": [{ "shell_command": "open -a 'Calendar'" }],
+                                "to": [
+                                    {
+                                        "shell_command": "open -a 'Microsoft Teams' && sleep 0.02 && osascript -e 'tell application \"Microsoft Teams\" to activate' -e 'tell application \"System Events\" to keystroke \"3\" using command down'"
+                                    }
+                                ],
                                 "type": "basic"
                             },
                             {
