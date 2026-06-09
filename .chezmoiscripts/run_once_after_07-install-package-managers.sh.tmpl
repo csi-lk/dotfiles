@@ -4,9 +4,6 @@ set -eufo pipefail
 
 echo "Installing JavaScript package managers..."
 
-{{ if eq .chezmoi.os "darwin" -}}
-# macOS: install both pnpm and bun via Homebrew
-
 # Install pnpm
 if ! command -v pnpm >/dev/null 2>&1; then
     echo "Installing pnpm via Homebrew..."
@@ -24,36 +21,7 @@ else
     echo "bun already installed: $(bun --version)"
 fi
 
-{{ else if eq .chezmoi.os "linux" -}}
-# Linux: install pnpm via npm, bun via official installer
 
-# Install pnpm if Node.js is available
-if command -v npm >/dev/null 2>&1; then
-    if ! command -v pnpm >/dev/null 2>&1; then
-        echo "Installing pnpm via npm..."
-        npm install -g pnpm || echo "Warning: Failed to install pnpm, continuing..."
-    else
-        echo "pnpm already installed: $(pnpm --version)"
-    fi
-else
-    echo "Skipping pnpm installation - Node.js/npm not found"
-fi
-
-# Install bun via official installer
-if ! command -v bun >/dev/null 2>&1; then
-    echo "Installing bun..."
-    curl -fsSL https://bun.sh/install | bash
-
-    # Add bun to PATH for current session
-    export BUN_INSTALL="$HOME/.bun"
-    export PATH="$BUN_INSTALL/bin:$PATH"
-
-    echo "bun installed successfully"
-else
-    echo "bun already installed: $(bun --version)"
-fi
-
-{{ end -}}
 
 # Verify installations
 echo ""

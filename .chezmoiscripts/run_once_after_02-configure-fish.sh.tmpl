@@ -8,14 +8,10 @@ if ! grep -q "$(which fish)" /etc/shells; then
     echo "$(which fish)" | sudo tee -a /etc/shells
 fi
 
-# Set fish as default shell if not in GitHub Codespaces
-if [ -z "${CODESPACES:-}" ]; then
-    if [ "$SHELL" != "$(which fish)" ]; then
-        echo "Setting fish as default shell..."
-        chsh -s "$(which fish)"
-    fi
-else
-    echo "Skipping shell change in GitHub Codespaces"
+# Set fish as default shell
+if [ "$SHELL" != "$(which fish)" ]; then
+    echo "Setting fish as default shell..."
+    chsh -s "$(which fish)"
 fi
 
 # Install Fisher plugin manager and plugins

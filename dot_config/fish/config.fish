@@ -81,7 +81,7 @@ fish_add_path $HOME/bin
 switch (uname)
     case Darwin
         # macOS specific settings
-        
+
         # Homebrew paths are now handled by 00-brew-cache.fish for faster startup
         # Just add the paths in case the cache hasn't run yet
         if test -d /opt/homebrew
@@ -91,37 +91,14 @@ switch (uname)
             fish_add_path /usr/local/bin
             fish_add_path /usr/local/sbin
         end
-        
+
         # macOS specific paths
         fish_add_path /usr/local/opt/coreutils/libexec/gnubin
         fish_add_path /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
-        
+
         # Set up homebrew environment variables
         if type -q brew
             set -gx HOMEBREW_NO_ANALYTICS 1
-        end
-        
-    case Linux
-        # Linux specific settings
-        
-        # Linuxbrew if installed
-        if test -d /home/linuxbrew/.linuxbrew
-            eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-            fish_add_path /home/linuxbrew/.linuxbrew/bin
-        end
-        
-        # Snap binaries
-        if test -d /snap/bin
-            fish_add_path /snap/bin
-        end
-        
-        # Flatpak exports
-        if test -d /var/lib/flatpak/exports/bin
-            fish_add_path /var/lib/flatpak/exports/bin
-        end
-        
-        if test -d $HOME/.local/share/flatpak/exports/bin
-            fish_add_path $HOME/.local/share/flatpak/exports/bin
         end
 end
 
@@ -159,7 +136,7 @@ if test -d $HOME/.local/share/pnpm
     fish_add_path $PNPM_HOME
 end
 
-# bun (Linux install location)
+# bun
 if test -d $HOME/.bun/bin
     set -gx BUN_INSTALL $HOME/.bun
     fish_add_path $HOME/.bun/bin
@@ -175,17 +152,6 @@ if type -q fzf
         set -gx FZF_DEFAULT_COMMAND 'fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
         set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
         set -gx FZF_ALT_C_COMMAND 'fd --type d --strip-cwd-prefix --hidden --follow --exclude .git'
-    end
-end
-
-# GitHub Codespaces specific
-if set -q CODESPACES
-    # Codespaces specific settings
-    set -gx BROWSER "gh cs ports forward 8080:8080 --app browser"
-    
-    # Add codespaces npm global path
-    if test -d /usr/local/share/npm-global/bin
-        fish_add_path /usr/local/share/npm-global/bin
     end
 end
 

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-{{ if eq .chezmoi.os "darwin" -}}
 echo "Configuring iTerm2..."
 
 # Create iTerm2 directories if they don't exist
@@ -30,11 +29,11 @@ color_scheme_path = os.path.expanduser("~/.config/iterm2/Monokai_Soda.itermcolor
 # Check if iTerm2 is installed
 if os.path.exists("/Applications/iTerm.app"):
     print("✓ iTerm2 found")
-    
+
     # The color scheme is already embedded in the dynamic profile
     print("✓ Monokai Soda colors configured in dynamic profile")
     print("✓ FiraCode Nerd Font configured in dynamic profile")
-    
+
     print("\nTo use the new profile:")
     print("1. Open iTerm2")
     print("2. Go to Preferences → Profiles")
@@ -46,6 +45,3 @@ EOF
 fi
 
 echo "iTerm2 configuration complete!"
-{{ else -}}
-echo "iTerm2 configuration is only supported on macOS"
-{{ end -}}

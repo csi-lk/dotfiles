@@ -1,19 +1,15 @@
 # Dotfiles
 
-Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/) for macOS and Linux (including GitHub Codespaces).
+Personal macOS dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 
 ## Features
 
 - 🐟 **Fish shell** with useful plugins and aliases
 - 📝 **Helix editor** with language-specific configurations
 - 🚀 **Modern CLI tools**: starship, zoxide, fzf, ripgrep, bat, eza
-- 🔧 **Automatic setup** for different operating systems
-- 🌐 **GitHub Codespaces** ready
-- 🎨 **Nerd Fonts** with automatic installation and fallbacks
+- 🎨 **Nerd Fonts** with automatic installation
 
 ## Installation
-
-### Quick Install
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/dotfiles.git
@@ -21,17 +17,11 @@ cd dotfiles
 ./install.sh
 ```
 
-### Manual Install
+Or directly via chezmoi:
 
-1. Install chezmoi:
-   ```bash
-   sh -c "$(curl -fsLS get.chezmoi.io)"
-   ```
-
-2. Initialize with this repository:
-   ```bash
-   chezmoi init --apply https://github.com/YOUR_USERNAME/dotfiles.git
-   ```
+```bash
+chezmoi init --apply https://github.com/YOUR_USERNAME/dotfiles.git
+```
 
 ## What's Included
 
@@ -67,7 +57,6 @@ cd dotfiles
   - Vim-style navigation and pane management
   - Smart session management with `tm` command
   - Project sessionizer with `Ctrl-f`
-  - Auto-starts in Codespaces
   - Custom OneDark theme matching Helix
   - Session persistence and restoration
 
@@ -92,45 +81,6 @@ cd dotfiles
 2. Update package lists in `.chezmoiscripts/run_once_before_01-install-packages.sh.tmpl`
 
 3. Run `chezmoi apply` to apply changes
-
-### OS-Specific Configurations
-
-Use chezmoi's templating for OS-specific settings:
-
-```bash
-{{ if eq .chezmoi.os "darwin" -}}
-# macOS specific config
-{{ else if eq .chezmoi.os "linux" -}}
-# Linux specific config
-{{ end -}}
-```
-
-## GitHub Codespaces
-
-This repository is configured to work seamlessly with GitHub Codespaces. 
-
-### Automatic Setup
-
-1. Go to [GitHub Codespaces Settings](https://github.com/settings/codespaces)
-2. Enable "Automatically install dotfiles"
-3. Select this repository
-4. All new Codespaces will automatically have your environment
-
-### Manual Setup (for existing Codespaces)
-
-```bash
-cd /workspaces/.codespaces/.persistedshare/dotfiles
-./install.sh --codespaces
-```
-
-### What's Included in Codespaces
-
-- Fish shell as default terminal
-- All CLI tools pre-installed
-- VS Code extensions for frontend development
-- Helix editor with full LSP support
-- Auto-forwarding for common dev ports (3000, 5173, 8080, etc.)
-- Optimized for 2+ CPU cores and 4GB+ RAM
 
 ## Updates
 
@@ -162,17 +112,6 @@ chmod +x ~/.local/share/chezmoi/.chezmoiscripts/*
 
 ## Keyboard Shortcuts Cheatsheet
 
-### Global (macOS)
-| Shortcut | Action |
-|----------|--------|
-| `Cmd+H/J/K/L` | Focus window (left/down/up/right) |
-| `Cmd+Shift+H/J/K/L` | Move window |
-| `Cmd+1-9` | Switch to workspace |
-| `Cmd+Shift+1-9` | Move window to workspace |
-| `Cmd+F` | Fullscreen toggle |
-| `Cmd+T` | Cycle layouts |
-| `Cmd+R` | Enter resize mode |
-
 ### Karabiner-Elements (Caps Lock as Super Key)
 | Shortcut | Action |
 |----------|--------|
@@ -188,8 +127,6 @@ chmod +x ~/.local/share/chezmoi/.chezmoiscripts/*
 ### Fish Shell
 | Shortcut | Action |
 |----------|--------|
-| `Ctrl+W` | Window finder (ff) |
-| `Alt+W` | Workspace switcher (fw) |
 | `Ctrl+F` | Project sessionizer (tmux) |
 | `Ctrl+T` | Fuzzy find directory |
 | `Ctrl+R` | Search command history |
@@ -215,14 +152,9 @@ chmod +x ~/.local/share/chezmoi/.chezmoiscripts/*
 |----------|--------|
 | `Ctrl+S` | Save file |
 | `Ctrl+Q` | Quit |
-| `Ctrl+C` | Center cursor |
 | `Ctrl+Alt+L` | Format document |
-| `Ctrl+E` | File explorer |
-| `Space+q` | Close buffer |
-| `Space+w` | Save |
 | `Space+r` | Rename symbol |
 | `Space+a` | Code actions |
-| `Space+h` | Hover info |
 | `Space+d` | Diagnostics picker |
 | `g+d` | Go to definition |
 | `g+r` | Go to references |
@@ -239,7 +171,6 @@ chmod +x ~/.local/share/chezmoi/.chezmoiscripts/*
 | `cme` | Edit file |
 | `cmcd` | Go to dotfiles |
 | `cms` | Show status |
-| `cm-help` | Show all aliases |
 
 ## License
 

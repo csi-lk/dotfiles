@@ -5,45 +5,14 @@
 echo "Checking for Nerd Fonts installation..."
 echo ""
 
-# Function to check font on macOS
-check_macos() {
-    if system_profiler SPFontsDataType 2>/dev/null | grep -q "Nerd Font"; then
-        echo "✓ Nerd Fonts found (macOS)"
-        system_profiler SPFontsDataType | grep "Nerd Font" | head -5
-        return 0
-    else
-        echo "✗ No Nerd Fonts found (macOS)"
-        return 1
-    fi
-}
-
-# Function to check font on Linux
-check_linux() {
-    if fc-list 2>/dev/null | grep -q "Nerd Font"; then
-        echo "✓ Nerd Fonts found (Linux)"
-        fc-list | grep "Nerd Font" | head -5
-        return 0
-    else
-        echo "✗ No Nerd Fonts found (Linux)"
-        return 1
-    fi
-}
-
-# Detect OS and check
-case "$(uname -s)" in
-    Darwin*)
-        check_macos
-        FOUND=$?
-        ;;
-    Linux*)
-        check_linux
-        FOUND=$?
-        ;;
-    *)
-        echo "Unsupported OS for font detection"
-        exit 1
-        ;;
-esac
+if system_profiler SPFontsDataType 2>/dev/null | grep -q "Nerd Font"; then
+    echo "✓ Nerd Fonts found"
+    system_profiler SPFontsDataType | grep "Nerd Font" | head -5
+    FOUND=0
+else
+    echo "✗ No Nerd Fonts found"
+    FOUND=1
+fi
 
 echo ""
 
@@ -62,21 +31,12 @@ if [ $FOUND -eq 0 ]; then
     echo "may not be configured to use a Nerd Font."
     echo ""
     echo "Terminal font configuration:"
-    echo "- VS Code: Set terminal.integrated.fontFamily to 'FiraCode Nerd Font'"
     echo "- iTerm2: Preferences → Profiles → Text → Font"
-    echo "- Other: Check your terminal's font settings"
+    echo "- Ghostty: Set font-family = FiraCode Nerd Font in config"
 else
     echo "To install FiraCode Nerd Font:"
     echo ""
-    echo "macOS:"
     echo "  curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip -o /tmp/FiraCode.zip"
     echo "  unzip -o /tmp/FiraCode.zip -d ~/Library/Fonts/"
     echo "  rm /tmp/FiraCode.zip"
-    echo ""
-    echo "Linux:"
-    echo "  Run the dotfiles install script, or:"
-    echo "  curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip -o /tmp/FiraCode.zip"
-    echo "  unzip -o /tmp/FiraCode.zip -d ~/.local/share/fonts/"
-    echo "  rm /tmp/FiraCode.zip"
-    echo "  fc-cache -fv"
 fi

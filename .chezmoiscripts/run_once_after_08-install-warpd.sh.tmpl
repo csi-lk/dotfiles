@@ -2,7 +2,6 @@
 
 set -eufo pipefail
 
-{{ if eq .chezmoi.os "darwin" -}}
 echo "Installing warpd for keyboard mouse control..."
 
 # Check if warpd is already installed
@@ -69,7 +68,3 @@ if [ -f "$WARPD_PLIST" ]; then
     launchctl unload "$WARPD_PLIST" 2>/dev/null || true
     launchctl load -w "$WARPD_PLIST" || echo "warpd LaunchAgent load failed (load manually after granting Accessibility permissions)"
 fi
-
-{{ else -}}
-echo "warpd installation is only supported on macOS"
-{{ end -}}
