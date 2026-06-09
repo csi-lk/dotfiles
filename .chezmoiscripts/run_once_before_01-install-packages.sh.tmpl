@@ -12,8 +12,6 @@ handle_brew_error() {
 
 {{ $packages := list
      "fish"
-     "helix"
-     "emacs"
      "starship"
      "zoxide"
      "fzf"
@@ -23,21 +21,15 @@ handle_brew_error() {
      "eza"
      "git"
      "gh"
-     "tmux"
      "curl"
      "wget" -}}
 {{ $macPackages := list
-     "sketchybar"
-     "jq"
-     "yabai" -}}
+     "jq" -}}
 
 {{ $taps := list
-     "FelixKratz/formulae"
      "xykong/tap" -}}
 {{ $casks := list
      "karabiner-elements"
-     "rectangle"
-     "iterm2"
      "music-decoy"
      "xykong/tap/flux-markdown" -}}
 
@@ -121,12 +113,6 @@ echo "Installing {{ . }}..."
 brew install --cask {{ . }} || echo "Warning: Failed to install {{ . }}, continuing..."
 {{ end -}}
 
-# Additional macOS setup for sketchybar
-if command -v sketchybar >/dev/null 2>&1; then
-    # Start sketchybar service
-    brew services start sketchybar 2>/dev/null || true
-fi
-
 # Configure Music Decoy to use Spotify instead of Apple Music
 defaults write com.lowtechguys.MusicDecoy mediaAppPath /Applications/Spotify.app
 
@@ -162,13 +148,7 @@ echo ""
 echo "Installed packages summary:"
 echo "=========================="
 {{ range $packages -}}
-{{ if eq . "helix" -}}
-if command -v hx >/dev/null 2>&1; then
-    echo "✓ helix (hx)"
-else
-    echo "✗ helix (not found)"
-fi
-{{ else if eq . "ripgrep" -}}
+{{ if eq . "ripgrep" -}}
 if command -v rg >/dev/null 2>&1; then
     echo "✓ ripgrep (rg)"
 else

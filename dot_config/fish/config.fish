@@ -7,8 +7,8 @@ fish_add_path ~/bin
 set -g fish_greeting
 
 # Set editor
-set -gx EDITOR hx
-set -gx VISUAL hx
+set -gx EDITOR nano
+set -gx VISUAL nano
 
 # Homebrew settings
 set -gx HOMEBREW_NO_AUTO_UPDATE 1
@@ -41,10 +41,7 @@ alias ls="eza --icons"
 alias ll="eza -l --icons"
 alias la="eza -la --icons"
 alias tree="eza --tree --icons"
-# alias cat="bat"
 alias cd="z"
-alias vim="hx"
-alias vi="hx"
 
 # Chezmoi aliases
 alias cm="chezmoi"
