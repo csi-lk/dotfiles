@@ -139,6 +139,11 @@ if test -d $HOME/.bun/bin
     fish_add_path $HOME/.bun/bin
 end
 
+# Hermes agent
+if test -d $HOME/.hermes/hermes-agent/venv/bin
+    fish_add_path $HOME/.hermes/hermes-agent/venv/bin
+end
+
 # Set up fzf
 if type -q fzf
     # Set fzf default options

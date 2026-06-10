@@ -53,7 +53,8 @@
       "Bash(~/bin/warpd --version)",
       "Bash(~/bin/warpd)",
       "Bash(~/bin/warpd --list-options | grep -i grid)",
-      "Bash(~/bin/warpd --hint)"
+      "Bash(~/bin/warpd --hint)",
+      "Bash(echo $HTTP_PROXY $HTTPS_PROXY $http_proxy $https_proxy; security find-certificate -a /Library/Keychains/System.keychain 2>/dev/null | grep -i \"cba\\\\|commonwealth\\\\|zscaler\\\\|bluecoat\\\\|netskope\" | head -5)"
     ],
     "deny": []
   }

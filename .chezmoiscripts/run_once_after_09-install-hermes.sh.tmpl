@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -eufo pipefail
+
+echo "Installing Hermes agent..."
+
+HERMES_DIR="$HOME/.hermes/hermes-agent"
+
+if [ -f "$HERMES_DIR/venv/bin/hermes" ]; then
+    echo "Hermes already installed: $("$HERMES_DIR/venv/bin/hermes" --version 2>/dev/null || true)"
+    exit 0
+fi
+
+# Build a CA bundle that includes corporate proxy certs (e.g. CBA)
+CA_BUNDLE=/tmp/hermes-ca-bundle.pem
+security find-certificate -a -p /Library/Keychains/System.keychain > "$CA_BUNDLE" 2>/dev/null || true
+security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain >> "$CA_BUNDLE" 2>/dev/null || true
+
+# Run the official installer - it clones the repo and sets up the venv
+SSL_CERT_FILE="$CA_BUNDLE" UV_SYSTEM_CERTS=1 curl -fsSL https://hermes-agent.nousresearch.com/install.sh | SSL_CERT_FILE="$CA_BUNDLE" UV_SYSTEM_CERTS=1 bash || true
+
+# If uv failed (e.g. proxy BufError on wheel extraction), fall back to pip
+if [ ! -f "$HERMES_DIR/venv/bin/hermes" ] && [ -d "$HERMES_DIR/venv" ]; then
+    echo "uv install failed, falling back to pip..."
+    "$HERMES_DIR/venv/bin/python3.11" -m ensurepip 2>/dev/null || true
+    "$HERMES_DIR/venv/bin/python3.11" -m pip install -e "$HERMES_DIR[core]" --cert "$CA_BUNDLE" --quiet
+fi
+
+if [ -f "$HERMES_DIR/venv/bin/hermes" ]; then
+    echo "✓ Hermes installed: $("$HERMES_DIR/venv/bin/hermes" --version 2>/dev/null || true)"
+else
+    echo "✗ Hermes installation failed"
+    exit 1
+fi
