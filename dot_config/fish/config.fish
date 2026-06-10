@@ -10,22 +10,9 @@ set -gx VISUAL nano
 # Homebrew settings
 set -gx HOMEBREW_NO_AUTO_UPDATE 1
 
-# Initialize starship prompt (lazy load to speed up startup)
+# Initialize starship prompt
 if type -q starship
-    # Use faster initialization method
-    set -gx STARSHIP_CONFIG "$HOME/.config/starship.toml"
-    function starship_prompt
-        starship prompt --status=$status --cmd-duration=$CMD_DURATION --jobs=(jobs -p | wc -l)
-    end
-    
-    # Set up the prompt functions
-    function fish_prompt
-        starship_prompt
-    end
-    
-    function fish_right_prompt
-        # Empty right prompt (starship handles everything)
-    end
+    starship init fish | source
 end
 
 # Initialize zoxide
