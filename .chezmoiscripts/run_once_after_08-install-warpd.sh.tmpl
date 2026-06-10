@@ -12,7 +12,7 @@ fi
 
 # Try to download pre-built binary first
 WARPD_VERSION="v1.3.5"
-WARPD_URL="https://github.com/rvaiya/warpd/releases/download/${WARPD_VERSION}/warpd-darwin-amd64"
+WARPD_URL="https://github.com/rvaiya/warpd/releases/download/${WARPD_VERSION}/warpd-darwin-arm64"
 
 echo "Downloading warpd ${WARPD_VERSION}..."
 if curl -L "$WARPD_URL" -o /tmp/warpd 2>/dev/null; then

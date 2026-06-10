@@ -19,7 +19,7 @@ function cm-help --description "Show chezmoi aliases and commands"
     echo ""
     echo "Examples:"
     echo "  cmd ~/.config/fish/config.fish    - See changes for specific file"
-    echo "  cma ~/.tmux.conf                  - Apply just one file"
+    echo "  cma ~/.config/fish/config.fish    - Apply just one file"
     echo "  cmaf --exclude=scripts            - Apply all except scripts"
     echo ""
     echo "Your chezmoi source: "(chezmoi source-path)

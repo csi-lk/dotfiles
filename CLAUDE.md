@@ -104,10 +104,9 @@ bun install / bun add react / bun run dev / bun test
 ## Claude Code Support
 
 ### Claude Code Aliases
-- `cc` - Run claude (shorthand)
-- `ccc` - Start claude with conversation mode
-- `ccn` - Start claude with a new conversation
-- `ccp` - Start claude in plan mode
+- `cc` - Run claude
+- `ccc` - Continue last conversation (`--continue`)
+- `ccp` - Plan mode (`--permission-mode plan`)
 
 ### claude-squad Aliases
 - `cs` - Run claude-squad

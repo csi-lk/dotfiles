@@ -1,8 +1,5 @@
 # Fish configuration
 
-# Add user bin to PATH
-fish_add_path ~/bin
-
 # Disable greeting
 set -g fish_greeting
 
@@ -55,9 +52,8 @@ alias cmu="chezmoi update"
 
 # Claude Code aliases
 alias cc="claude"
-alias ccc="claude --conversation"
-alias ccn="claude --new"
-alias ccp="claude --plan"
+alias ccc="claude --continue"
+alias ccp="claude --permission-mode plan"
 
 # claude-squad aliases
 alias cs="claude-squad"
@@ -69,44 +65,32 @@ alias csr="claude-squad run"
 alias brewup="env HOMEBREW_NO_AUTO_UPDATE=0 brew update && brew upgrade"
 alias brewfast="env HOMEBREW_NO_AUTO_UPDATE=1 brew"
 
-# Common PATH additions
+# PATH additions
 fish_add_path $HOME/.local/bin
-fish_add_path $HOME/.cargo/bin
 fish_add_path $HOME/bin
 
-# OS-specific configurations
-switch (uname)
-    case Darwin
-        # macOS specific settings
+# Homebrew paths (fallback if 00-brew-cache.fish hasn't run yet)
+if test -d /opt/homebrew
+    fish_add_path /opt/homebrew/bin
+    fish_add_path /opt/homebrew/sbin
+else if test -d /usr/local/Homebrew
+    fish_add_path /usr/local/bin
+    fish_add_path /usr/local/sbin
+end
 
-        # Homebrew paths are now handled by 00-brew-cache.fish for faster startup
-        # Just add the paths in case the cache hasn't run yet
-        if test -d /opt/homebrew
-            fish_add_path /opt/homebrew/bin
-            fish_add_path /opt/homebrew/sbin
-        else if test -d /usr/local/Homebrew
-            fish_add_path /usr/local/bin
-            fish_add_path /usr/local/sbin
-        end
+fish_add_path /usr/local/opt/coreutils/libexec/gnubin
+fish_add_path /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
 
-        # macOS specific paths
-        fish_add_path /usr/local/opt/coreutils/libexec/gnubin
-        fish_add_path /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
-
-        # Set up homebrew environment variables
-        if type -q brew
-            set -gx HOMEBREW_NO_ANALYTICS 1
-        end
+if type -q brew
+    set -gx HOMEBREW_NO_ANALYTICS 1
 end
 
 # Language-specific paths
-# Go
 if test -d $HOME/go/bin
     fish_add_path $HOME/go/bin
     set -gx GOPATH $HOME/go
 end
 
-# Rust
 if test -d $HOME/.cargo/bin
     fish_add_path $HOME/.cargo/bin
 end
@@ -137,11 +121,6 @@ end
 if test -d $HOME/.bun/bin
     set -gx BUN_INSTALL $HOME/.bun
     fish_add_path $HOME/.bun/bin
-end
-
-# Hermes agent
-if test -d $HOME/.hermes/hermes-agent/venv/bin
-    fish_add_path $HOME/.hermes/hermes-agent/venv/bin
 end
 
 # Set up fzf

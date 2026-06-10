@@ -32,7 +32,6 @@ if [ $FOUND -eq 0 ]; then
     echo ""
     echo "Terminal font configuration:"
     echo "- iTerm2: Preferences → Profiles → Text → Font"
-    echo "- Ghostty: Set font-family = FiraCode Nerd Font in config"
 else
     echo "To install FiraCode Nerd Font:"
     echo ""

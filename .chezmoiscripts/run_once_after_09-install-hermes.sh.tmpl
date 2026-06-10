@@ -28,6 +28,11 @@ fi
 
 if [ -f "$HERMES_DIR/venv/bin/hermes" ]; then
     echo "✓ Hermes installed: $("$HERMES_DIR/venv/bin/hermes" --version 2>/dev/null || true)"
+    # Symlink into ~/.local/bin so it's on PATH without venv manipulation
+    mkdir -p "$HOME/.local/bin"
+    ln -sf "$HERMES_DIR/venv/bin/hermes" "$HOME/.local/bin/hermes"
+    ln -sf "$HERMES_DIR/venv/bin/hermes-agent" "$HOME/.local/bin/hermes-agent"
+    echo "✓ Hermes symlinked to ~/.local/bin"
 else
     echo "✗ Hermes installation failed"
     exit 1
