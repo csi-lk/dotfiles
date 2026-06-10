@@ -20,15 +20,6 @@
                         "description": "Caps Lock as Super Key - Application Launcher",
                         "manipulators": [
                             {
-                                "description": "Caps Lock + Z → Zen Browser",
-                                "from": {
-                                    "key_code": "z",
-                                    "modifiers": { "mandatory": ["caps_lock"] }
-                                },
-                                "to": [{ "shell_command": "open -a 'Zen'" }],
-                                "type": "basic"
-                            },
-                            {
                                 "description": "Caps Lock + T → Microsoft Teams (Activity)",
                                 "from": {
                                     "key_code": "t",
@@ -60,7 +51,7 @@
                                     "key_code": "f",
                                     "modifiers": { "mandatory": ["caps_lock"] }
                                 },
-                                "to": [{ "shell_command": "open -a 'Firefox' || open -a 'Zen'" }],
+                                "to": [{ "shell_command": "open -a 'Firefox'" }],
                                 "type": "basic"
                             },
                             {
@@ -144,12 +135,12 @@
                                 "type": "basic"
                             },
                             {
-                                "description": "Caps Lock + Space → Ghostty",
+                                "description": "Caps Lock + Space → iTerm",
                                 "from": {
                                     "key_code": "spacebar",
                                     "modifiers": { "mandatory": ["caps_lock"] }
                                 },
-                                "to": [{ "shell_command": "open -a 'Ghostty' || open -a 'iTerm'" }],
+                                "to": [{ "shell_command": "open -a 'iTerm'" }],
                                 "type": "basic"
                             }
                         ]

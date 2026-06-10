@@ -13,7 +13,6 @@ This repository contains personal macOS dotfiles managed with [chezmoi](https://
 │   └── run_once_after_02-configure-fish.sh.tmpl
 ├── dot_config/             # Maps to ~/.config/
 │   ├── fish/               # Fish shell configuration
-│   ├── ghostty/            # Ghostty terminal config
 │   └── starship.toml       # Starship prompt
 ├── .github/workflows/      # CI/CD workflows (macOS runners)
 └── install.sh              # Main installation script

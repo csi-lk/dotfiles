@@ -124,6 +124,16 @@ defaults write com.apple.screencapture type -string "png"
 defaults write com.apple.screencapture disable-shadow -bool true
 
 ###############################################################################
+# Default browser
+###############################################################################
+
+# Set Firefox as default browser
+if command -v defaultbrowser >/dev/null 2>&1; then
+    defaultbrowser firefox
+    echo "✓ Firefox set as default browser"
+fi
+
+###############################################################################
 # Activity Monitor
 ###############################################################################
 
