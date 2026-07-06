@@ -117,6 +117,15 @@
                                 "type": "basic"
                             },
                             {
+                                "description": "Caps Lock + 3 → T3 Code",
+                                "from": {
+                                    "key_code": "3",
+                                    "modifiers": { "mandatory": ["caps_lock"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'T3 Code (Alpha)'" }],
+                                "type": "basic"
+                            },
+                            {
                                 "description": "Caps Lock + O → Obsidian",
                                 "from": {
                                     "key_code": "o",
